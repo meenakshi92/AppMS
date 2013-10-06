@@ -17,9 +17,18 @@ public class UniversityProvider extends ContentProvider {
 	
 
 	@Override
-	public int delete(Uri arg0, String arg1, String[] arg2) {
+	public int delete(Uri uri, String selection, String[] selectionArgs) {
 		// TODO Auto-generated method stub
-		return 0;
+		SQLiteDatabase db = data.getWritableDatabase();
+		int delCount = 0;
+		delCount = db.delete( TABLE_NAME, selection, selectionArgs);
+		
+		   if (delCount > 0 ) {
+			   getContext().getContentResolver().notifyChange(uri, null);
+			   }
+		   return delCount;
+
+
 	}
 
 	@Override

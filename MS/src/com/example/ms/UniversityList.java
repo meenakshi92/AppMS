@@ -1,7 +1,9 @@
 package com.example.ms;
 
+import java.util.ArrayList;
 import android.net.Uri;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import android.app.ListActivity;	
 import android.app.LoaderManager;
@@ -10,16 +12,23 @@ import android.content.CursorLoader;
 import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
+import android.view.ActionMode;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.support.v4.app.NavUtils;
 import android.support.v4.widget.SimpleCursorAdapter;
 import android.annotation.TargetApi;
 import android.os.Build;
+import android.widget.AbsListView.MultiChoiceModeListener;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ListView;
 import android.widget.TextView;
 import static com.example.database.Constants.*;
+
 import com.example.database.*;
+
 
 public class UniversityList extends ListActivity implements LoaderManager.LoaderCallbacks<Cursor>{
 		private static final int LIST_ID = 0;
@@ -30,6 +39,9 @@ public class UniversityList extends ListActivity implements LoaderManager.Loader
 		int[] toViews = new int[]{R.id.name_entry};
 		SimpleCursorAdapter mAdapter;
 		Data data;
+		private MultiChoiceModeListener multichoice;
+		private ActionMode mActionMode;
+		
 	
 
 	@Override
@@ -45,6 +57,109 @@ public class UniversityList extends ListActivity implements LoaderManager.Loader
         listview = getListView();
         listview.setAdapter(mAdapter);
 		getLoaderManager().initLoader(LIST_ID, null, this);
+		
+		listview.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
+
+		multichoice=new MultiChoiceModeListener(){
+			private int selCount = 0;
+	        ArrayList<Long> idList = new ArrayList<Long>();
+	        Long id1;
+
+			@Override
+			public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+				// TODO Auto-generated method stub
+				switch (item.getItemId()) {
+                case R.id.delete:
+                	
+                	String SELEC=" _ID = "+Long.toString(id1);
+                	Uri CONTENT_URI=Uri.parse("content://" + "com.example.providers.UniversityProvider" + "/" + TABLE_NAME);
+                	int rows=getContentResolver().delete(CONTENT_URI,SELEC,null);
+                	if(rows>1)
+                	Toast.makeText(getBaseContext(), Integer.toString(rows)+" universities deleted ", Toast.LENGTH_SHORT).show();
+                	else
+                		Toast.makeText(getBaseContext(), Integer.toString(rows)+" university deleted ", Toast.LENGTH_SHORT).show();
+                	mode.finish();
+                    return true;
+                case R.id.edit:
+                    Intent i=new Intent(getApplicationContext(),Edit.class);
+                    startActivity(i);
+                    mode.finish(); // Action picked, so close the CAB
+                    return true;
+                default:
+                    return false;
+            }
+				
+			}
+
+			@Override
+			public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+				// TODO Auto-generated method stub
+				  MenuInflater inflater = mode.getMenuInflater();
+		            inflater.inflate(R.menu.context_menu, menu);
+		            return true;
+				
+			}
+
+			@Override
+			public void onDestroyActionMode(ActionMode arg0) {
+				// TODO Auto-generated method stub
+				selCount = 0;
+	            idList.clear();
+				
+			}
+
+			@Override
+			public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+				// TODO Auto-generated method stub
+				if (selCount == 1){
+				       MenuItem item = menu.findItem(R.id.edit);
+				       item.setVisible(true);
+				       MenuItem item1 = menu.findItem(R.id.delete);
+				       item1.setVisible(true);
+				       return true;
+				   } else {
+				       MenuItem item = menu.findItem(R.id.delete);
+				       item.setVisible(false);
+				       return true;
+				   }
+				
+			}
+
+			@Override
+			public void onItemCheckedStateChanged(ActionMode mode, int position,
+					long id, boolean checked) {
+				// TODO Auto-generated method stub
+				if (checked) {
+			         selCount++;
+			         idList.add(id);
+			     } else {
+			         selCount--;
+			         idList.remove(id);
+			     }
+				id1=id;
+			     mode.setTitle(selCount + " selected");
+
+			     mode.invalidate();
+				
+			}
+			};
+		listview.setMultiChoiceModeListener(multichoice);
+		listview.setOnItemLongClickListener(new OnItemLongClickListener() {
+
+			@Override
+			public boolean onItemLongClick(AdapterView<?> arg0, View view,
+					int arg2, long arg3) {
+				// TODO Auto-generated method stub
+				 if (mActionMode != null) {
+			            return false;
+			        }
+
+			        // Start the CAB using the ActionMode.Callback defined above
+			        mActionMode = UniversityList.this.startActionMode(multichoice);
+			        view.setSelected(true);
+			        return true;	
+			}
+	});
 
 	}
 	
@@ -121,12 +236,15 @@ public class UniversityList extends ListActivity implements LoaderManager.Loader
 		String text = ((TextView)v.findViewById(R.id.name_entry)).getText().toString();
 		Bundle bundle = new Bundle();
 		bundle.putString("UniName", text);
+		bundle.putLong("id", id);
 		Intent intent = new Intent(getApplicationContext(), TaskList.class); 
 	    intent.putExtras(bundle);
 	    startActivity(intent); 
 		
 	}
 	
+	
+
 	@Override
 	public void onBackPressed() {
 		super.onBackPressed();
