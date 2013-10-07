@@ -62,6 +62,8 @@ public class UniversityList extends ListActivity implements LoaderManager.Loader
 
 		multichoice=new MultiChoiceModeListener(){
 			private int selCount = 0;
+			private int j = 0;
+			String SELEC = "";
 	        ArrayList<Long> idList = new ArrayList<Long>();
 	        Long id1;
 
@@ -71,7 +73,13 @@ public class UniversityList extends ListActivity implements LoaderManager.Loader
 				switch (item.getItemId()) {
                 case R.id.delete:
                 	
-                	String SELEC=" _ID = "+Long.toString(id1);
+                	for(j = 0; j<idList.size(); j++) {
+                		if(j == 0)
+                			SELEC = " _ID = " + Long.toString(idList.get(j));
+                		else
+                			SELEC += " OR _ID = " + Long.toString(idList.get(j));
+                	}
+
                 	Uri CONTENT_URI=Uri.parse("content://" + "com.example.providers.UniversityProvider" + "/" + TABLE_NAME);
                 	int rows=getContentResolver().delete(CONTENT_URI,SELEC,null);
                 	if(rows>1)
