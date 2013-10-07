@@ -38,9 +38,19 @@
             android:name="com.example.ms.AddUniv"
             android:label="@string/title_activity_add_univ" >
         </activity>
+        <activity
+            android:name="com.example.ms.Edit"
+            android:label="@string/title_activity_edit" >
+        </activity>
+
         <provider
             android:name="@string/name"
             android:authorities="@string/name" />
+
+        <activity
+            android:name="com.example.ms.TrackIt"
+            android:label="@string/title_activity_track_it" >
+        </activity>
     </application>
 
 </manifest>

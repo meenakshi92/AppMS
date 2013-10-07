@@ -8,7 +8,10 @@ import android.app.Dialog;
 import android.app.DialogFragment;
 import android.app.Fragment;
 import android.content.ContentValues;
+import android.content.CursorLoader;
 import android.content.Intent;
+import android.content.Loader;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
@@ -20,14 +23,21 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
+import static android.provider.BaseColumns._ID;
 import static com.example.database.Constants.*;
+import android.app.LoaderManager;
+
 
 @SuppressLint("NewApi")
-public class AddUniv extends Activity {
+public class Edit extends Activity implements LoaderManager.LoaderCallbacks<Cursor> {
 
+	private static final int LIST_ID = 0;
 	static EditText univName, appFee, deadline;
 	Button pickDate, send;
 	Spinner numLors, numTranscripts;
+	private static final String[] PROJECTION = new String[]{_ID,DEADLINE,FEE,NO_LORS,NO_TRANSCRIPTS};
+	private static final String SELECTION = null;
 	
 	//Database elements
 	Uri mNewUri;
@@ -40,14 +50,14 @@ public class AddUniv extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_add_univ);
-		univName = (EditText) findViewById(R.id.univ_name);
-	    appFee = (EditText) findViewById(R.id.app_fee);
-	    deadline = (EditText) findViewById(R.id.deadline);
+		setContentView(R.layout.activity_edit);
+		univName = (EditText) findViewById(R.id.univ_name1);
+	    appFee = (EditText) findViewById(R.id.app_fee1);
+	    deadline = (EditText) findViewById(R.id.deadline1);
 	    
-	    pickDate = (Button) findViewById(R.id.pick_date);
-	    numLors = (Spinner) findViewById(R.id.num_lors);
-	    numTranscripts = (Spinner) findViewById(R.id.num_transcripts);
+	    pickDate = (Button) findViewById(R.id.pick_date1);
+	    numLors = (Spinner) findViewById(R.id.num_lors1);
+	    numTranscripts = (Spinner) findViewById(R.id.num_transcripts1);
 	    
 	    ArrayAdapter<CharSequence> adapterLor = ArrayAdapter.createFromResource(this, R.array.num_lors, android.R.layout.simple_spinner_item);
 	    adapterLor.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -56,6 +66,8 @@ public class AddUniv extends Activity {
 	    ArrayAdapter<CharSequence> adapterTrans = ArrayAdapter.createFromResource(this, R.array.num_lors, android.R.layout.simple_spinner_item);
 	    adapterTrans.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 	    numTranscripts.setAdapter(adapterTrans);
+	    getLoaderManager().initLoader(LIST_ID,null,this);
+	    
 	}
 
 	@Override
@@ -99,12 +111,12 @@ public class AddUniv extends Activity {
 	        // An item was selected. You can retrieve the selected item using
 	        // parent.getItemAtPosition(pos)
 	    	switch(((Spinner)view).getId()) {
-	    	case R.id.num_lors:
-		    	Spinner spinnerLor = (Spinner) findViewById(R.id.num_lors);
+	    	case R.id.num_lors1:
+		    	Spinner spinnerLor = (Spinner) findViewById(R.id.num_lors1);
 		    	spinnerLor.setOnItemSelectedListener(this);
 		    	break;
-	    	case R.id.num_transcripts:
-		    	Spinner spinnerTrans = (Spinner) findViewById(R.id.num_transcripts);
+	    	case R.id.num_transcripts1:
+		    	Spinner spinnerTrans = (Spinner) findViewById(R.id.num_transcripts1);
 		    	spinnerTrans.setOnItemSelectedListener(this);
 		    	break;
 	    	}
@@ -117,8 +129,8 @@ public class AddUniv extends Activity {
 	   public void commitChanges(View view) {
 	    	ContentValues values = new ContentValues();
 	    	values.put(NAME, univName.getText().toString());
-	    	values.put(FEE, Double.parseDouble(appFee.getText().toString()));
 	    	values.put(DEADLINE, deadline.getText().toString());
+	    	values.put(FEE, Double.parseDouble(appFee.getText().toString()));
 	    	values.put(NO_LORS, Integer.parseInt(numLors.getSelectedItem().toString()));
 	    	values.put(NO_TRANSCRIPTS, Integer.parseInt(numTranscripts.getSelectedItem().toString()));
 	    	mNewUri = getContentResolver().insert(CONTENT_URI, values);
@@ -129,4 +141,28 @@ public class AddUniv extends Activity {
 		    intent.putExtras(bundle);
 		    startActivity(intent); 
 	    }
+	@Override
+	public Loader<Cursor> onCreateLoader(int arg0, Bundle arg1) {
+		// TODO Auto-generated method stub
+		Uri CONTENT_URI=Uri.parse("content://" + "com.example.providers.UniversityProvider" + "/University");
+		return new CursorLoader(this ,CONTENT_URI, PROJECTION, SELECTION, null,null);
+		
+	}
+	@Override
+	public void onLoadFinished(Loader<Cursor> arg0, Cursor cursor) {
+		// TODO Auto-generated method stub
+		cursor.moveToFirst();
+		univName.setText(cursor.getString(0), TextView.BufferType.EDITABLE);
+		deadline.setText(cursor.getString(1),TextView.BufferType.EDITABLE);
+		appFee.setText(Double.toString(cursor.getDouble(2)),TextView.BufferType.EDITABLE);
+		numLors.setPrompt(Integer.toString(cursor.getInt(3)));
+		numTranscripts.setPrompt(Integer.toString(cursor.getInt(4)));
+
+		
+	}
+	@Override
+	public void onLoaderReset(Loader<Cursor> arg0) {
+		// TODO Auto-generated method stub
+		
+	}
 }

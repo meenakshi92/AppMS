@@ -17,7 +17,7 @@ public class Data extends SQLiteOpenHelper {
 	private final static String SQL_CREATE_ENTRIES= "CREATE TABLE "+TABLE_NAME+
 													"("+_ID+" INTEGER PRIMARY KEY AUTOINCREMENT,"
 													+NAME+" TEXT NOT NULL,"
-													+DEADLINE+" DATE,"
+													+DEADLINE+" STRING,"
 													+FEE+" DOUBLE,"
 													+NO_LORS+" INTEGER,"
 													+NO_TRANSCRIPTS+" INTEGER);";

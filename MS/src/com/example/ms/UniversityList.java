@@ -78,6 +78,7 @@ public class UniversityList extends ListActivity implements LoaderManager.Loader
                 	Toast.makeText(getBaseContext(), Integer.toString(rows)+" universities deleted ", Toast.LENGTH_SHORT).show();
                 	else
                 		Toast.makeText(getBaseContext(), Integer.toString(rows)+" university deleted ", Toast.LENGTH_SHORT).show();
+                	getLoaderManager().restartLoader(LIST_ID, null, UniversityList.this);
                 	mode.finish();
                     return true;
                 case R.id.edit:
@@ -119,7 +120,9 @@ public class UniversityList extends ListActivity implements LoaderManager.Loader
 				       return true;
 				   } else {
 				       MenuItem item = menu.findItem(R.id.delete);
-				       item.setVisible(false);
+				       item.setVisible(true);
+				       MenuItem item1 = menu.findItem(R.id.edit);
+				       item1.setVisible(false);
 				       return true;
 				   }
 				
