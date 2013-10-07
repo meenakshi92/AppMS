@@ -190,10 +190,10 @@ public Loader<Cursor> onCreateLoader(int arg0, Bundle arg1) {
 public void onLoadFinished(Loader<Cursor> arg0, Cursor cursor) {
 	// TODO Auto-generated method stub
 	cursor.moveToFirst();
-	app_deadline = cursor.getString(0);
-	app_fee = Double.toString(cursor.getDouble(1));
-	lor = Integer.toString(cursor.getInt(2));
-	transcript = Integer.toString(cursor.getInt(3));
+	app_deadline = cursor.getString(2);
+	app_fee = Double.toString(cursor.getDouble(3));
+	lor = Integer.toString(cursor.getInt(4));
+	transcript = Integer.toString(cursor.getInt(5));
 	
 }
 

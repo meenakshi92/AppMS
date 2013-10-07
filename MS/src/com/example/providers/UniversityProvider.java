@@ -5,6 +5,7 @@ import com.example.database.Data;
 import android.content.ContentProvider;
 import android.content.ContentValues;
 import android.database.Cursor;
+import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.util.Log;
@@ -41,7 +42,7 @@ public class UniversityProvider extends ContentProvider {
 	public Uri insert(Uri uri, ContentValues values) {
 		// TODO Auto-generated method stub
 		String SELECTION =  "((" + NAME + " NOT NULL) AND (" + NAME + " != '' ))";
-		String[] PROJECTION = new String[]{_ID,NAME,FEE,NO_LORS,NO_TRANSCRIPTS};
+		String[] PROJECTION = new String[]{_ID,NAME,DEADLINE,FEE,NO_LORS,NO_TRANSCRIPTS};
 		long id=0; String TAG = "Test";
 		SQLiteDatabase db = data.getWritableDatabase();
 		id=db.insert(TABLE_NAME,null,values);
@@ -50,7 +51,8 @@ public class UniversityProvider extends ContentProvider {
 		Cursor cursor = db.query(TABLE_NAME, PROJECTION, SELECTION, null, null, null, null);
 		cursor.moveToFirst();
 		while(cursor.moveToNext())
-			Log.d(TAG, cursor.getString(0));
+			for(int i = 0; i<cursor.getColumnCount(); i++)
+				Log.d(TAG, cursor.getString(i));
 		return Uri.parse(TABLE_NAME + "/" + id);		
 	}
 
@@ -66,13 +68,10 @@ public class UniversityProvider extends ContentProvider {
 			String arg4) {
 		// TODO Auto-generated method stub
 		String SELECTION =  "((" + NAME + " NOT NULL) AND (" + NAME + " != '' ))";
-		String[] PROJECTION = new String[]{_ID,NAME,FEE,NO_LORS,NO_TRANSCRIPTS};
+		String[] PROJECTION = new String[]{_ID,NAME,DEADLINE,FEE,NO_LORS,NO_TRANSCRIPTS};
 		SQLiteDatabase db=data.getReadableDatabase();
 		Cursor cursor = db.query(TABLE_NAME, PROJECTION, SELECTION, null, null, null, null);
-		
-		cursor.moveToFirst();
-		while(cursor.moveToNext())
-			Log.d("Test", cursor.getString(0));
+		Log.d("InsideContentProv", DatabaseUtils.dumpCursorToString(cursor));
 		return cursor;
 	}
 

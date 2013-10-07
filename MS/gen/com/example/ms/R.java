@@ -27,9 +27,12 @@ public final class R {
         public static final int activity_vertical_margin=0x7f050001;
     }
     public static final class drawable {
+        public static final int focused=0x7f020004;
         public static final int ic_launcher=0x7f020000;
-        public static final int sky=0x7f020001;
-        public static final int statue_of_liberty=0x7f020002;
+        public static final int listselector=0x7f020001;
+        public static final int selected=0x7f020005;
+        public static final int sky=0x7f020002;
+        public static final int statue_of_liberty=0x7f020003;
     }
     public static final class id {
         public static final int Date=0x7f0a001a;

@@ -59,7 +59,7 @@ public class UniversityList extends ListActivity implements LoaderManager.Loader
 		getLoaderManager().initLoader(LIST_ID, null, this);
 		
 		listview.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
-
+		listview.setSelector(R.drawable.listselector);
 		multichoice=new MultiChoiceModeListener(){
 			private int selCount = 0;
 			private int j = 0;
@@ -81,7 +81,8 @@ public class UniversityList extends ListActivity implements LoaderManager.Loader
                 	}
 
                 	Uri CONTENT_URI=Uri.parse("content://" + "com.example.providers.UniversityProvider" + "/" + TABLE_NAME);
-                	int rows=getContentResolver().delete(CONTENT_URI,SELEC,null);
+                	
+                	int rows = getContentResolver().delete(CONTENT_URI,SELEC,null);
                 	if(rows>1)
                 	Toast.makeText(getBaseContext(), Integer.toString(rows)+" universities deleted ", Toast.LENGTH_SHORT).show();
                 	else

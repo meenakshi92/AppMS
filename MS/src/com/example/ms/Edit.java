@@ -12,8 +12,10 @@ import android.content.CursorLoader;
 import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
+import android.database.DatabaseUtils;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
@@ -152,12 +154,13 @@ public class Edit extends Activity implements LoaderManager.LoaderCallbacks<Curs
 	public void onLoadFinished(Loader<Cursor> arg0, Cursor cursor) {
 		// TODO Auto-generated method stub
 		cursor.moveToFirst();
-		univName.setText(cursor.getString(0), TextView.BufferType.EDITABLE);
-		deadline.setText(cursor.getString(1),TextView.BufferType.EDITABLE);
-		appFee.setText(Double.toString(cursor.getDouble(2)),TextView.BufferType.EDITABLE);
-		numLors.setPrompt(Integer.toString(cursor.getInt(3)));
-		numTranscripts.setPrompt(Integer.toString(cursor.getInt(4)));
-
+		/*univName.setText(cursor.getString(1), TextView.BufferType.EDITABLE);
+		deadline.setText(cursor.getString(2),TextView.BufferType.EDITABLE);
+		appFee.setText(Double.toString(cursor.getDouble(3)),TextView.BufferType.EDITABLE);
+		numLors.setPrompt(Integer.toString(cursor.getInt(4)));
+		numTranscripts.setPrompt(Integer.toString(cursor.getInt(5)));
+		*/
+		Log.d("Test", DatabaseUtils.dumpCursorToString(cursor));
 		
 	}
 	@Override

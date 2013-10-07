@@ -32,9 +32,9 @@
     <string name="add">Add University</string>
     <string name="Fee">Application Fee</string>
     <string name="heading">#000066</string>
-    <string name="Date">DEADLINE</string>
-    <string name="lors">No. of LORs needed:</string>
-    <string name="transcripts">No. of transcripts needed:</string>
+    <string name="Date">Deadline</string>
+    <string name="lors">#LORs</string>
+    <string name="transcripts">#Transcripts</string>
     <string name="online">Online Application</string>
     <string name="Gre">Sent GRE Score?</string>
     <string name="Toefl">Sent  Toefl Score?</string>
