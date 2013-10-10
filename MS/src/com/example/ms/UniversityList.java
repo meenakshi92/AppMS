@@ -12,12 +12,14 @@ import android.content.CursorLoader;
 import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.view.ActionMode;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.support.v4.app.NavUtils;
 import android.support.v4.widget.SimpleCursorAdapter;
+import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.os.Build;
 import android.widget.AbsListView.MultiChoiceModeListener;
@@ -44,6 +46,7 @@ public class UniversityList extends ListActivity implements LoaderManager.Loader
 		
 	
 
+	@SuppressLint("ResourceAsColor")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -59,7 +62,6 @@ public class UniversityList extends ListActivity implements LoaderManager.Loader
 		getLoaderManager().initLoader(LIST_ID, null, this);
 		
 		listview.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
-		listview.setSelector(R.drawable.listselector);
 		multichoice=new MultiChoiceModeListener(){
 			private int selCount = 0;
 			private int j = 0;
@@ -115,7 +117,7 @@ public class UniversityList extends ListActivity implements LoaderManager.Loader
 				// TODO Auto-generated method stub
 				selCount = 0;
 	            idList.clear();
-				
+				listview.setBackgroundColor(Color.WHITE);
 			}
 
 			@Override
@@ -157,11 +159,16 @@ public class UniversityList extends ListActivity implements LoaderManager.Loader
 			};
 		listview.setMultiChoiceModeListener(multichoice);
 		listview.setOnItemLongClickListener(new OnItemLongClickListener() {
-
+			View row;
 			@Override
 			public boolean onItemLongClick(AdapterView<?> arg0, View view,
 					int arg2, long arg3) {
 				// TODO Auto-generated method stub
+				if(row != null){
+					row.setBackgroundResource(R.color.orange);
+				}
+				row = view;
+				view.setBackgroundColor(Color.BLUE);
 				 if (mActionMode != null) {
 			            return false;
 			        }
@@ -246,6 +253,7 @@ public class UniversityList extends ListActivity implements LoaderManager.Loader
 	{	
 		//String text = (String)((Cursor)l.getItemAtPosition(position)).toString();
 		String text = ((TextView)v.findViewById(R.id.name_entry)).getText().toString();
+		v.setBackgroundColor(Color.BLUE);
 		Bundle bundle = new Bundle();
 		bundle.putString("UniName", text);
 		bundle.putLong("id", id);

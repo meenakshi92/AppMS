@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="heading">#3500ffff</color>
-    <drawable name="focused">#ff5500</drawable>
-    <drawable name="selected">#FF00FF</drawable>
-    
+    <color name="orange">#ffa900</color>
+   <color name="white">#ffffff</color>
 </resources>

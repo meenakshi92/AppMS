@@ -15,6 +15,8 @@ public final class R {
     }
     public static final class color {
         public static final int heading=0x7f040000;
+        public static final int orange=0x7f040001;
+        public static final int white=0x7f040002;
     }
     public static final class dimen {
         /**  Default screen margins, per the Android Design guidelines. 
@@ -27,38 +29,34 @@ public final class R {
         public static final int activity_vertical_margin=0x7f050001;
     }
     public static final class drawable {
-        public static final int focused=0x7f020004;
         public static final int ic_launcher=0x7f020000;
-        public static final int listselector=0x7f020001;
-        public static final int selected=0x7f020005;
-        public static final int sky=0x7f020002;
-        public static final int statue_of_liberty=0x7f020003;
+        public static final int sky=0x7f020001;
+        public static final int statue_of_liberty=0x7f020002;
     }
     public static final class id {
-        public static final int Date=0x7f0a001a;
-        public static final int Date_value=0x7f0a001b;
-        public static final int Fee=0x7f0a0018;
-        public static final int Fee_value=0x7f0a0019;
+        public static final int Date=0x7f0a001b;
+        public static final int Date_value=0x7f0a001c;
+        public static final int Fee=0x7f0a0019;
+        public static final int Fee_value=0x7f0a001a;
         public static final int about=0x7f0a0012;
-        public static final int action_settings=0x7f0a0026;
-        public static final int add=0x7f0a0016;
-        public static final int addToTrack=0x7f0a0015;
+        public static final int action_settings=0x7f0a0027;
+        public static final int add=0x7f0a0017;
         public static final int app_fee=0x7f0a0002;
         public static final int app_fee1=0x7f0a000b;
         public static final int button_add_univ_details=0x7f0a0007;
         public static final int button_add_univ_details1=0x7f0a0010;
-        public static final int checkBox1=0x7f0a0020;
-        public static final int checkBox2=0x7f0a0021;
-        public static final int checkBox3=0x7f0a0022;
-        public static final int checkBox4=0x7f0a0023;
-        public static final int checkbox_univ=0x7f0a0024;
+        public static final int checkBox1=0x7f0a0021;
+        public static final int checkBox2=0x7f0a0022;
+        public static final int checkBox3=0x7f0a0023;
+        public static final int checkBox4=0x7f0a0024;
+        public static final int checkbox_univ=0x7f0a0025;
         public static final int deadline=0x7f0a0003;
         public static final int deadline1=0x7f0a000c;
-        public static final int delete=0x7f0a0028;
-        public static final int edit=0x7f0a0027;
-        public static final int lors=0x7f0a001c;
-        public static final int lors_value=0x7f0a001d;
-        public static final int name_entry=0x7f0a0025;
+        public static final int delete=0x7f0a0029;
+        public static final int edit=0x7f0a0028;
+        public static final int lors=0x7f0a001d;
+        public static final int lors_value=0x7f0a001e;
+        public static final int name_entry=0x7f0a0026;
         public static final int num_lors=0x7f0a0005;
         public static final int num_lors1=0x7f0a000e;
         public static final int num_transcripts=0x7f0a0006;
@@ -67,15 +65,17 @@ public final class R {
         public static final int pick_date=0x7f0a0004;
         public static final int pick_date1=0x7f0a000d;
         public static final int process=0x7f0a0014;
+        public static final int tableLayout=0x7f0a0015;
+        public static final int tableRow=0x7f0a0016;
         public static final int text_view_title=0x7f0a0000;
         public static final int text_view_title1=0x7f0a0009;
         public static final int tracker=0x7f0a0013;
-        public static final int transcripts=0x7f0a001e;
-        public static final int transcripts_value=0x7f0a001f;
+        public static final int transcripts=0x7f0a001f;
+        public static final int transcripts_value=0x7f0a0020;
         public static final int univ_name=0x7f0a0001;
         public static final int univ_name1=0x7f0a000a;
         public static final int university_list=0x7f0a0011;
-        public static final int university_name=0x7f0a0017;
+        public static final int university_name=0x7f0a0018;
     }
     public static final class layout {
         public static final int activity_add_univ=0x7f030000;

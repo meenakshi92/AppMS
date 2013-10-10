@@ -1,37 +1,39 @@
 package com.example.ms;
  
+import static android.provider.BaseColumns._ID;
+import static com.example.database.Constants.*;
+
 import java.util.ArrayList;
 
-
- 
 import android.app.ActionBar;
 import android.app.ActionBar.Tab;
 import android.app.FragmentTransaction;
-import android.app.LoaderManager.LoaderCallbacks;
 import android.content.Context;
-import android.content.CursorLoader;
 import android.content.Intent;
-import android.content.Loader;
 import android.database.Cursor;
+import android.database.DatabaseUtils;
+import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Bundle;
- 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 
-import static com.example.database.Constants.*;
-public class TaskList extends FragmentActivity implements LoaderCallbacks<Cursor> {
+import com.example.database.Data;
+public class TaskList extends FragmentActivity{
  
- private static final int LIST_ID = 0;
- 
-private static final String[] PROJECTION = new String[]{_ID,DEADLINE,FEE,NO_LORS,NO_TRANSCRIPTS};
-private static final String SELECTION = null;
-ViewPager ViewPager;
- TabsAdapter TabsAdapter;
- String text,app_deadline,app_fee,lor,transcript;
- 
+	private static final String[] PROJECTION = new String[]{_ID,DEADLINE,FEE,NO_LORS,NO_TRANSCRIPTS};
+	private static String SELECTION = null;
+	ViewPager ViewPager;
+	TabsAdapter TabsAdapter;
+	String uniName,app_deadline,app_fee,lor,transcript;
+	private long id;
+	SQLiteDatabase db;
+	Data data;
+	Cursor cursor;
+	Uri CONTENT_URI = Uri.parse("content://" + "com.example.providers.UniversityProvider" +"/" + "University");
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -44,16 +46,22 @@ ViewPager ViewPager;
         
         //Getting University name
        // Bundle bundle=this.getIntent().getExtras();
-        Intent i=getIntent();
-        text=i.getStringExtra("UniName");
+        Intent i = getIntent();
+        uniName = i.getStringExtra("UniName");
+        id = i.getLongExtra("id",1);
+        SELECTION=" _ID = "+ Long.toString(id);
         
-        
- 
         //Create a new Action bar and set title to strings.xml
         final ActionBar bar = getActionBar();
         bar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
         bar.setTitle(R.string.title_activity_task_list);
  
+        //getLoaderManager().initLoader(LIST_ID, null, this);
+        
+        /*
+         *   getContentResolver().query method yet to be implemented
+         */
+        fillCursor();
         //Attach the Tabs to the fragment classes and set the tab title.
         TabsAdapter = new TabsAdapter(this, ViewPager);
         TabsAdapter.addTab(bar.newTab().setText("Details"),
@@ -63,7 +71,7 @@ ViewPager ViewPager;
         TabsAdapter.addTab(bar.newTab().setText("Post application"),
           PostApp.class, null);
        
-        getLoaderManager().initLoader(LIST_ID, null, this);
+      
         
         if (savedInstanceState != null) {
             bar.setSelectedNavigationItem(savedInstanceState.getInt("tab", 0));
@@ -169,8 +177,10 @@ ViewPager ViewPager;
  
  }
  public Bundle sendData()
- {	Bundle bundle=new Bundle();
- 	bundle.putString("UniName", text);
+ {	
+	 
+	Bundle bundle=new Bundle();
+ 	bundle.putString("UniName", uniName);
  	bundle.putString("deadline", app_deadline);
  	bundle.putString("fee", app_fee);
  	bundle.putString("lor", lor);
@@ -178,29 +188,16 @@ ViewPager ViewPager;
  	
  	return bundle;
  }
-
-@Override
-public Loader<Cursor> onCreateLoader(int arg0, Bundle arg1) {
-	// TODO Auto-generated method stub
-	Uri CONTENT_URI=Uri.parse("content://" + "com.example.providers.UniversityProvider" + "/University");
-	return new CursorLoader(this ,CONTENT_URI, PROJECTION, SELECTION, null,null);
-}
-
-@Override
-public void onLoadFinished(Loader<Cursor> arg0, Cursor cursor) {
-	// TODO Auto-generated method stub
-	cursor.moveToFirst();
-	app_deadline = cursor.getString(2);
-	app_fee = Double.toString(cursor.getDouble(3));
-	lor = Integer.toString(cursor.getInt(4));
-	transcript = Integer.toString(cursor.getInt(5));
-	
-}
-
-@Override
-public void onLoaderReset(Loader<Cursor> arg0) {
-	// TODO Auto-generated method stub
-	
-}
  
+ public void fillCursor()
+ {
+	 cursor = getContentResolver().query(CONTENT_URI, PROJECTION, SELECTION, null, null);
+	 Log.d("TL", DatabaseUtils.dumpCursorToString(cursor));
+	 cursor.moveToFirst();
+	    app_deadline = cursor.getString(cursor.getColumnIndexOrThrow(DEADLINE));
+	 	app_fee = Double.toString(cursor.getDouble(cursor.getColumnIndexOrThrow(FEE)));
+	 	lor = Integer.toString(cursor.getInt(cursor.getColumnIndexOrThrow(NO_LORS)));
+	 	transcript = Integer.toString(cursor.getInt(cursor.getColumnIndexOrThrow(NO_TRANSCRIPTS)));
+	 	cursor.close();
+ }
 }

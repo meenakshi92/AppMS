@@ -67,10 +67,9 @@ public class UniversityProvider extends ContentProvider {
 	public Cursor query(Uri arg0, String[] projection, String selection, String[] selectionArgs,
 			String arg4) {
 		// TODO Auto-generated method stub
-		String SELECTION =  "((" + NAME + " NOT NULL) AND (" + NAME + " != '' ))";
-		String[] PROJECTION = new String[]{_ID,NAME,DEADLINE,FEE,NO_LORS,NO_TRANSCRIPTS};
-		SQLiteDatabase db=data.getReadableDatabase();
-		Cursor cursor = db.query(TABLE_NAME, PROJECTION, SELECTION, null, null, null, null);
+		
+		SQLiteDatabase db = data.getReadableDatabase();
+		Cursor cursor = db.query(TABLE_NAME, projection, selection, selectionArgs, null, null, null);
 		Log.d("InsideContentProv", DatabaseUtils.dumpCursorToString(cursor));
 		return cursor;
 	}

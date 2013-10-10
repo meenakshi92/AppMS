@@ -43,14 +43,17 @@
             android:label="@string/title_activity_edit" >
         </activity>
 
+        <activity android:name=".TrackIt"
+            android:label="@string/title_activity_track_it"
+            android:parentActivityName="com.example.ms.MainActivity">
+            <meta-data android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.ms.MainActivity" />
+        </activity>
+       
         <provider
             android:name="@string/name"
             android:authorities="@string/name" />
-
-        <activity
-            android:name="com.example.ms.TrackIt"
-            android:label="@string/title_activity_track_it" >
-        </activity>
+   
     </application>
 
 </manifest>
