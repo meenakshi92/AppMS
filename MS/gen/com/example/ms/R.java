@@ -133,6 +133,13 @@ public final class R {
         public static final int resume=0x7f07001a;
         public static final int sky=0x7f070028;
         public static final int sop=0x7f070018;
+        public static final int table_admit=0x7f070032;
+        public static final int table_aid=0x7f07002e;
+        public static final int table_gre=0x7f07002f;
+        public static final int table_lor=0x7f070031;
+        public static final int table_online=0x7f07002d;
+        public static final int table_toefl=0x7f070030;
+        public static final int table_uniName=0x7f07002c;
         public static final int title_activity_add_univ=0x7f07000f;
         public static final int title_activity_details=0x7f070004;
         public static final int title_activity_edit=0x7f070029;
