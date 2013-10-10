@@ -75,9 +75,12 @@ public class UniversityProvider extends ContentProvider {
 	}
 
 	@Override
-	public int update(Uri arg0, ContentValues arg1, String arg2, String[] arg3) {
+	public int update(Uri arg0, ContentValues values, String selection, String[] selectionArgs) {
 		// TODO Auto-generated method stub
-		return 0;
+		int noRowsUpdated = 0;
+		SQLiteDatabase db = data.getWritableDatabase();
+		noRowsUpdated = db.update(TABLE_NAME, values, selection, selectionArgs);
+		return noRowsUpdated;
 	}
 	
 

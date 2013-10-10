@@ -30,6 +30,7 @@
     <string name="resume">Resume</string>
     <string name="name">com.example.providers.UniversityProvider</string>
     <string name="add">Add University</string>
+    <string name="button_edit">Save Changes</string>
     <string name="Fee">Application Fee</string>
     <string name="heading">#000066</string>
     <string name="Date">Deadline</string>

@@ -38,12 +38,12 @@ public class Edit extends Activity implements LoaderManager.LoaderCallbacks<Curs
 	static EditText univName, appFee, deadline;
 	Button pickDate, send;
 	Spinner numLors, numTranscripts;
-	private static final String[] PROJECTION = new String[]{_ID,DEADLINE,FEE,NO_LORS,NO_TRANSCRIPTS};
-	private static final String SELECTION = null;
-	
+	private static final String[] PROJECTION = new String[]{_ID, NAME, DEADLINE,FEE,NO_LORS,NO_TRANSCRIPTS};
+	private static String SELECTION = null;
+	private long id;
 	//Database elements
 	Uri mNewUri;
-	Uri CONTENT_URI=Uri.parse("content://" + "com.example.providers.UniversityProvider" + "/" + TABLE_NAME);
+	Uri CONTENT_URI=Uri.parse("content://" + "com.example.providers.UniversityProvider" + "/" + "University");
 	
 	public void showDatePickerDialog(View v) {
 	    DialogFragment newFragment = new DatePickerFragment();
@@ -53,6 +53,9 @@ public class Edit extends Activity implements LoaderManager.LoaderCallbacks<Curs
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_edit);
+		Intent i = getIntent();
+        id = i.getLongExtra("id",1);
+        SELECTION=" _ID = "+ Long.toString(id);
 		univName = (EditText) findViewById(R.id.univ_name1);
 	    appFee = (EditText) findViewById(R.id.app_fee1);
 	    deadline = (EditText) findViewById(R.id.deadline1);
@@ -135,12 +138,10 @@ public class Edit extends Activity implements LoaderManager.LoaderCallbacks<Curs
 	    	values.put(FEE, Double.parseDouble(appFee.getText().toString()));
 	    	values.put(NO_LORS, Integer.parseInt(numLors.getSelectedItem().toString()));
 	    	values.put(NO_TRANSCRIPTS, Integer.parseInt(numTranscripts.getSelectedItem().toString()));
-	    	mNewUri = getContentResolver().insert(CONTENT_URI, values);
+	    	int noUpdated = getContentResolver().update(CONTENT_URI, values,SELECTION,null);
 	    	
-	    	Bundle bundle = new Bundle();
-			bundle.putString("UniName", mNewUri.toString());
-			Intent intent = new Intent(getApplicationContext(), UniversityList.class); 
-		    intent.putExtras(bundle);
+	    	Intent intent = new Intent(getApplicationContext(), UniversityList.class); 
+	    	intent.putExtra("noUpdated", noUpdated);
 		    startActivity(intent); 
 	    }
 	@Override
@@ -154,14 +155,13 @@ public class Edit extends Activity implements LoaderManager.LoaderCallbacks<Curs
 	public void onLoadFinished(Loader<Cursor> arg0, Cursor cursor) {
 		// TODO Auto-generated method stub
 		cursor.moveToFirst();
-		/*univName.setText(cursor.getString(1), TextView.BufferType.EDITABLE);
+		univName.setText(cursor.getString(1), TextView.BufferType.EDITABLE);
 		deadline.setText(cursor.getString(2),TextView.BufferType.EDITABLE);
 		appFee.setText(Double.toString(cursor.getDouble(3)),TextView.BufferType.EDITABLE);
 		numLors.setPrompt(Integer.toString(cursor.getInt(4)));
 		numTranscripts.setPrompt(Integer.toString(cursor.getInt(5)));
-		*/
 		Log.d("Test", DatabaseUtils.dumpCursorToString(cursor));
-		
+		cursor.close();
 	}
 	@Override
 	public void onLoaderReset(Loader<Cursor> arg0) {

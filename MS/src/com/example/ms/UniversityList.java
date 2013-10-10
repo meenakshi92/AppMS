@@ -43,7 +43,7 @@ public class UniversityList extends ListActivity implements LoaderManager.Loader
 		Data data;
 		private MultiChoiceModeListener multichoice;
 		private ActionMode mActionMode;
-		
+		Uri CONTENT_URI=Uri.parse("content://" + "com.example.providers.UniversityProvider" + "/" + TABLE_NAME);
 	
 
 	@SuppressLint("ResourceAsColor")
@@ -94,6 +94,10 @@ public class UniversityList extends ListActivity implements LoaderManager.Loader
                     return true;
                 case R.id.edit:
                     Intent i=new Intent(getApplicationContext(),Edit.class);
+                    SELEC = " _ID = " + Long.toString(idList.get(0));
+                    Cursor cursor = getContentResolver().query(Uri.parse("content://" + "com.example.providers.UniversityProvider" + "/" + TABLE_NAME), PROJECTION, SELEC, null, null);
+                    cursor.moveToFirst();
+                    i.putExtra("id", cursor.getLong(0));
                     startActivity(i);
                     mode.finish(); // Action picked, so close the CAB
                     return true;
@@ -225,7 +229,7 @@ public class UniversityList extends ListActivity implements LoaderManager.Loader
 	@Override
 	public Loader<Cursor> onCreateLoader(int arg0, Bundle arg1) {
 		// TODO Auto-generated method stub
-		Uri CONTENT_URI=Uri.parse("content://" + "com.example.providers.UniversityProvider" + "/" + TABLE_NAME);
+		
 
 		return new CursorLoader(this,CONTENT_URI, PROJECTION, SELECTION, null, null);
 	
@@ -253,7 +257,6 @@ public class UniversityList extends ListActivity implements LoaderManager.Loader
 	{	
 		//String text = (String)((Cursor)l.getItemAtPosition(position)).toString();
 		String text = ((TextView)v.findViewById(R.id.name_entry)).getText().toString();
-		v.setBackgroundColor(Color.BLUE);
 		Bundle bundle = new Bundle();
 		bundle.putString("UniName", text);
 		bundle.putLong("id", id);
