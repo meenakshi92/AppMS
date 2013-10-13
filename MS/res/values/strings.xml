@@ -45,12 +45,14 @@
     <string name="sky">SKY Background</string>
     <string name="title_activity_edit">Edit</string>
     <string name="title_activity_track_it">TrackIt</string>
-	<string name="addToTrack">Track</string>
-	<string name="table_uniName">University name</string>
+    <string name="addToTrack">Track</string>
+    <string name="table_uniName">University name</string>
     <string name="table_online">Online application</string>
     <string name="table_aid">Financial aid</string>
     <string name="table_gre">GRE Score</string>
     <string name="table_toefl">Toefl Score</string>
     <string name="table_lor">Lor</string>
     <string name="table_admit">Admit</string>
+    <string name="title_activity_process">Process</string>
+
 </resources>

@@ -42,18 +42,27 @@
             android:name="com.example.ms.Edit"
             android:label="@string/title_activity_edit" >
         </activity>
-
-        <activity android:name=".TrackIt"
+        <activity
+            android:name="com.example.ms.TrackIt"
             android:label="@string/title_activity_track_it"
-            android:parentActivityName="com.example.ms.MainActivity">
-            <meta-data android:name="android.support.PARENT_ACTIVITY"
+            android:parentActivityName="com.example.ms.MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.ms.MainActivity" />
         </activity>
-       
-        <provider
+
+      	 <provider
             android:name="@string/name"
             android:authorities="@string/name" />
-   
+
+        <activity
+            android:name="com.example.ms.Process"
+            android:label="@string/title_activity_process"
+            android:parentActivityName="com.example.ms.MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.ms.MainActivity" />
+        </activity>
     </application>
 
 </manifest>

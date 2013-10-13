@@ -29,7 +29,8 @@ public class MainActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				
+				Intent i = new Intent(getApplicationContext() ,Process.class);
+				startActivity(i);
 			}
 		});
 		View aboutButton=findViewById(R.id.about);
@@ -47,14 +48,12 @@ public class MainActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				//Intent i = new Intent(getApplicationContext(),TrackIt.class);
-				//startActivity(i);
+				Intent i = new Intent(getApplicationContext(),TrackIt.class);
+				startActivity(i);
 			}
 		});
 		
 	}
-	
-		
 	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -62,5 +61,11 @@ public class MainActivity extends Activity {
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
 	}
-
+		public void onBackPressed() {
+			
+			Intent i= new Intent("package.homescreenactivity");
+		    i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NO_HISTORY);
+		    startActivity(i);
+		    finish(); 
+		}
 }
