@@ -54,5 +54,11 @@
     <string name="table_lor">Lor</string>
     <string name="table_admit">Admit</string>
     <string name="title_activity_process">Process</string>
-
+	<string name="about_title">About MS Application Tracker</string>
+	<string name="ok_message">OK!</string>
+	<string name="about_message">Use this app to organize your MS 
+	    						Application process. 
+	    						1. Add your list of universities and start the tracker 
+	    						2. Use the pre-defined checklist and update it on the go
+	    						3. Generate a report and view all statuses at once</string>
 </resources>
