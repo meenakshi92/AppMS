@@ -123,6 +123,8 @@ public final class R {
         public static final int STUDY_ABROAD=0x7f070008;
         public static final int Toefl=0x7f070025;
         public static final int about=0x7f07000d;
+        public static final int about_message=0x7f070037;
+        public static final int about_title=0x7f070035;
         public static final int action_settings=0x7f070001;
         public static final int add=0x7f07001c;
         public static final int addToTrack=0x7f07002c;
@@ -141,6 +143,7 @@ public final class R {
         public static final int name=0x7f07001b;
         public static final int num_lors=0x7f070015;
         public static final int num_transcripts=0x7f070016;
+        public static final int ok_message=0x7f070036;
         public static final int online=0x7f070023;
         public static final int pick_date=0x7f070014;
         public static final int process=0x7f07000a;

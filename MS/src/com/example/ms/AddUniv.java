@@ -122,11 +122,6 @@ public class AddUniv extends Activity {
 	    	values.put(NO_LORS, Integer.parseInt(numLors.getSelectedItem().toString()));
 	    	values.put(NO_TRANSCRIPTS, Integer.parseInt(numTranscripts.getSelectedItem().toString()));
 	    	mNewUri = getContentResolver().insert(CONTENT_URI, values);
-	    	
-	    	Bundle bundle = new Bundle();
-			bundle.putString("UniName", mNewUri.toString());
-			Intent intent = new Intent(getApplicationContext(), UniversityList.class); 
-		    intent.putExtras(bundle);
-		    startActivity(intent); 
+	    	finish();
 	    }
 }

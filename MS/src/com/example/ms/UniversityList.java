@@ -266,6 +266,11 @@ public class UniversityList extends ListActivity implements LoaderManager.Loader
 		
 	}
 	
+	@Override
+	public void onResume() {
+		super.onResume();
+		getLoaderManager().restartLoader(LIST_ID, null, UniversityList.this);
+	}
 	
 
 	@Override

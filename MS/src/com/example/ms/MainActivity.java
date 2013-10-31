@@ -2,6 +2,10 @@
 
 import android.os.Bundle;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.app.DialogFragment;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.view.Menu;
 import android.view.View;
@@ -38,6 +42,8 @@ public class MainActivity extends Activity {
 			
 			@Override
 			public void onClick(View v) {
+				DialogFragment newFragment = new AboutDialog();
+				newFragment.show(getFragmentManager(), "OK");
 				// TODO Auto-generated method stub
 				
 			}
@@ -68,4 +74,23 @@ public class MainActivity extends Activity {
 		    startActivity(i);
 		    finish(); 
 		}
+}
+
+class AboutDialog extends DialogFragment
+{
+	@Override
+	public Dialog onCreateDialog(Bundle savedInstanceState) {
+		AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+		
+		builder.setTitle(R.string.about_title)
+			   .setMessage(R.string.about_message)
+			   .setPositiveButton(R.string.ok_message, new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int id) {
+				// User pressed OK!
+			}
+		});
+		
+		AlertDialog dialog = builder.create();
+		return dialog;
+	}
 }

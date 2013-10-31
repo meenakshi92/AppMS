@@ -140,9 +140,7 @@ public class Edit extends Activity implements LoaderManager.LoaderCallbacks<Curs
 	    	values.put(NO_TRANSCRIPTS, Integer.parseInt(numTranscripts.getSelectedItem().toString()));
 	    	int noUpdated = getContentResolver().update(CONTENT_URI, values,SELECTION,null);
 	    	
-	    	Intent intent = new Intent(getApplicationContext(), UniversityList.class); 
-	    	intent.putExtra("noUpdated", noUpdated);
-		    startActivity(intent); 
+	    	finish(); 
 	    }
 	@Override
 	public Loader<Cursor> onCreateLoader(int arg0, Bundle arg1) {
