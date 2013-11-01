@@ -8,8 +8,6 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -28,7 +26,6 @@ public class TrackIt extends Activity implements LoaderManager.LoaderCallbacks<C
 	static final String SELECTION =  "((" + NAME + " NOT NULL) AND (" + NAME + " != '' ))";
 	private static final int LIST_ID = 0;
 	TextView name,online,aid,gre,toefl;
-	View separator, columnSeparator;
 	TableLayout tl;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -98,7 +95,7 @@ public class TrackIt extends Activity implements LoaderManager.LoaderCallbacks<C
 			name.setText(s);
 			SharedPreferences preferences = getApplicationContext().getSharedPreferences(s, android.content.Context.MODE_PRIVATE);
 			TableRow row= new TableRow(this);
-	        TableRow.LayoutParams lp = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT,25);
+	        TableRow.LayoutParams lp = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT);
 	        row.setLayoutParams(lp);
 	        b=preferences.getBoolean("Online",false);
 			online=new TextView(this);
@@ -127,32 +124,18 @@ public class TrackIt extends Activity implements LoaderManager.LoaderCallbacks<C
 				toefl.setBackgroundColor(Color.GREEN);
 			else
 				toefl.setBackgroundColor(Color.RED);
-			columnSeparator = new View(getApplicationContext());
-			//columnSeparator.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.2));
-			//columnSeparator.setBackgroundColor(Color.BLACK);
-			ViewGroup.LayoutParams params =new ViewGroup.LayoutParams(1, 25);
-			columnSeparator.setLayoutParams(params);
-
+			
 			row.addView(name);
-			//row.addView(rowSep1);
 			row.addView(online);
-			//row.addView(rowSep1);
 			row.addView(aid);
-			//row.addView(rowSep1);
 			row.addView(gre);
-			//row.addView(rowSep1);
 			row.addView(toefl);
-			//row.addView(rowSep1);
 			tl.addView(row,i);
-			separator = new View(getApplicationContext());
-			separator.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 2));
-			separator.setBackgroundColor(Color.BLACK);
-			tl.addView(separator,i+1);
-			i=i+2;
+			i++;
+						
 		}
-	}
 				
-	
+	}
 	@Override
 	public void onLoaderReset(Loader<Cursor> arg0) {
 		// TODO Auto-generated method stub
