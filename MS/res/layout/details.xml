@@ -27,85 +27,74 @@
         android:layout_height="wrap_content"
         android:scrollbars="vertical"
         android:maxLines="5"
+        android:textColor="#524e86"
         android:textSize="30sp"
-        android:textColor="@color/heading"/>
+        />
         
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent"
-        android:layout_marginTop="20sp">
+   
     <TextView
-  			android:text="@string/Fee"
-  	       android:id="@+id/Fee"
-  	       android:layout_width="wrap_content"
-  	       android:layout_height="wrap_content"/>
+        android:id="@+id/Fee"
+         android:layout_marginTop="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/Fee"
+        android:textColor="#524e86"
+        android:textStyle="bold" />
+
   	   <TextView 
   	       
   	       android:id="@+id/Fee_value"
   	       android:layout_height="wrap_content"
   	       android:layout_width="wrap_content"
   	       />
-  	   </LinearLayout>
-  	   <LinearLayout
-        android:orientation="horizontal"
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent"
-        android:layout_marginTop="25sp">
+  	  
+
   	   <TextView
-  	       android:text="@string/Date"
   	       android:id="@+id/Date"
+  	        android:layout_marginTop="10dp"
   	       android:layout_width="wrap_content"
   	       android:layout_height="wrap_content"
-  	       
-  	       
-  	       />
+  	       android:text="@string/Date"
+  	       android:textColor="#524e86"
+  	       android:textStyle="bold" />
+
   	   <TextView 
   	       
   	       android:id="@+id/Date_value"
   	       android:layout_height="wrap_content"
   	       android:layout_width="wrap_content"
   	       />
-  	   </LinearLayout>
-  	   <LinearLayout
-        android:orientation="horizontal"
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent"
-        android:layout_marginTop="25sp">
+  	  
   	    <TextView
-  	       android:text="@string/lors"
-  	       android:id="@+id/lors"
-  	       android:layout_width="wrap_content"
-  	       android:layout_height="wrap_content"
-  	       
-  	       
-  	       />
+  	        android:layout_width="wrap_content"
+  	        android:layout_height="wrap_content"
+  	        android:text="@string/lors"
+  	         android:layout_marginTop="10dp"
+  	        android:textColor="#524e86"
+  	        android:textStyle="bold" />
+
   	   <TextView 
   	      
   	       android:id="@+id/lors_value"
   	       android:layout_height="wrap_content"
   	       android:layout_width="wrap_content"
   	       />
-  	   </LinearLayout>
-  	   <LinearLayout
-        android:orientation="horizontal"
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent"
-        android:layout_marginTop="25sp">
+  	 
+     
   	   	 <TextView
-  	       android:text="@string/transcripts"
-  	       android:id="@+id/transcripts"
-  	       android:layout_width="wrap_content"
-  	       android:layout_height="wrap_content"
-  	       
-  	       
-  	       />
+  	   	     android:layout_width="wrap_content"
+  	   	     android:layout_height="wrap_content"
+  	   	      android:layout_marginTop="10dp"
+  	   	     android:text="@string/transcripts"
+  	   	     android:textColor="#524e86"
+  	   	     android:textStyle="bold" />
+
   	   <TextView 
   	       android:id="@+id/transcripts_value"
   	       android:layout_height="wrap_content"
   	       android:layout_width="wrap_content"
   	       />
-  	   </LinearLayout>
+  	   
   <!--    <ImageView 
 		android:src="@drawable/graduate"
 	    android:gravity="bottom" 

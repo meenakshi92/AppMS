@@ -133,9 +133,17 @@ public class Edit extends Activity implements LoaderManager.LoaderCallbacks<Curs
 	}
 	   public void commitChanges(View view) {
 	    	ContentValues values = new ContentValues();
-	    	values.put(NAME, univName.getText().toString());
-	    	values.put(DEADLINE, deadline.getText().toString());
-	    	values.put(FEE, Double.parseDouble(appFee.getText().toString()));
+	    	String nullString = "Null";
+	    	if(univName.getText() != null)
+	    		values.put(NAME, univName.getText().toString());
+	    	else values.put(NAME, nullString);
+	    	Log.d("lol", univName.getText().toString());
+	    	if(appFee.getText() != null)
+	    		values.put(FEE, Double.parseDouble(appFee.getText().toString()));
+	    	else values.put(FEE, (Double)0.0);
+	    	if(deadline.getText() != null)
+	    		values.put(DEADLINE, deadline.getText().toString());
+	    	else values.put(DEADLINE, nullString);
 	    	values.put(NO_LORS, Integer.parseInt(numLors.getSelectedItem().toString()));
 	    	values.put(NO_TRANSCRIPTS, Integer.parseInt(numTranscripts.getSelectedItem().toString()));
 	    	int noUpdated = getContentResolver().update(CONTENT_URI, values,SELECTION,null);

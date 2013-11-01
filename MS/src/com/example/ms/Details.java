@@ -24,9 +24,9 @@ public class Details extends Fragment {
 		deadline.setText(app_deadline);
 		fee=(TextView)v.findViewById(R.id.Fee_value);
 		fee.setText(app_fee);
-		lors=(TextView)v.findViewById(R.id.lors);
+		lors=(TextView)v.findViewById(R.id.lors_value);
 		lors.setText(lor);
-		transcripts=(TextView)v.findViewById(R.id.transcripts);
+		transcripts=(TextView)v.findViewById(R.id.transcripts_value);
 		transcripts.setText(transcript);
 	     
 		return v;

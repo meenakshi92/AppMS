@@ -67,13 +67,7 @@ public class MainActivity extends Activity {
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
 	}
-		public void onBackPressed() {
-			
-			Intent i= new Intent("package.homescreenactivity");
-		    i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NO_HISTORY);
-		    startActivity(i);
-		    finish(); 
-		}
+		
 }
 
 class AboutDialog extends DialogFragment

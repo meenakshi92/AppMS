@@ -11,6 +11,7 @@ import android.content.ContentValues;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
@@ -20,6 +21,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import static com.example.database.Constants.*;
 
 @SuppressLint("NewApi")
@@ -116,9 +118,17 @@ public class AddUniv extends Activity {
 	}
 	   public void commitChanges(View view) {
 	    	ContentValues values = new ContentValues();
-	    	values.put(NAME, univName.getText().toString());
-	    	values.put(FEE, Double.parseDouble(appFee.getText().toString()));
-	    	values.put(DEADLINE, deadline.getText().toString());
+	    	String nullString = "Null";
+	    	if(univName.getText() != null)
+	    		values.put(NAME, univName.getText().toString());
+	    	else values.put(NAME, nullString);
+	    	Log.d("lol", univName.getText().toString());
+	    	if(appFee.getText() != null)
+	    		values.put(FEE, Double.parseDouble(appFee.getText().toString()));
+	    	else values.put(FEE, (Double)0.0);
+	    	if(deadline.getText() != null)
+	    		values.put(DEADLINE, deadline.getText().toString());
+	    	else values.put(DEADLINE, nullString);
 	    	values.put(NO_LORS, Integer.parseInt(numLors.getSelectedItem().toString()));
 	    	values.put(NO_TRANSCRIPTS, Integer.parseInt(numTranscripts.getSelectedItem().toString()));
 	    	mNewUri = getContentResolver().insert(CONTENT_URI, values);
