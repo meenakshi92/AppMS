@@ -26,6 +26,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 import static android.provider.BaseColumns._ID;
 import static com.example.database.Constants.*;
 import android.app.LoaderManager;
@@ -132,23 +133,38 @@ public class Edit extends Activity implements LoaderManager.LoaderCallbacks<Curs
 	    }
 	}
 	   public void commitChanges(View view) {
-	    	ContentValues values = new ContentValues();
-	    	String nullString = "Null";
-	    	if(univName.getText() != null)
-	    		values.put(NAME, univName.getText().toString());
-	    	else values.put(NAME, nullString);
-	    	Log.d("lol", univName.getText().toString());
-	    	if(appFee.getText() != null)
-	    		values.put(FEE, Double.parseDouble(appFee.getText().toString()));
-	    	else values.put(FEE, (Double)0.0);
-	    	if(deadline.getText() != null)
-	    		values.put(DEADLINE, deadline.getText().toString());
-	    	else values.put(DEADLINE, nullString);
-	    	values.put(NO_LORS, Integer.parseInt(numLors.getSelectedItem().toString()));
-	    	values.put(NO_TRANSCRIPTS, Integer.parseInt(numTranscripts.getSelectedItem().toString()));
-	    	int noUpdated = getContentResolver().update(CONTENT_URI, values,SELECTION,null);
-	    	
-	    	finish(); 
+		   try{
+		    	
+			    String number="0";
+	            String nullString="Null";
+	            ContentValues values = new ContentValues();
+	            String editText = univName.getText().toString();
+	            if (editText.matches("")) 
+	            	values.put(NAME, nullString);
+	            else
+		    	values.put(NAME, editText);
+	            
+	            editText=appFee.getText().toString();
+	            if(editText.matches(""))
+	            	values.put(FEE, Double.valueOf(number).doubleValue());
+	            else
+	                values.put(FEE, Double.parseDouble(appFee.getText().toString()));
+	           
+	            editText = deadline.getText().toString();
+	            if (editText.matches("")) 
+	            	values.put(DEADLINE, nullString);
+	            else
+		    	values.put(DEADLINE, editText);
+	            
+		    	values.put(NO_LORS, Integer.parseInt(numLors.getSelectedItem().toString()));
+		    	values.put(NO_TRANSCRIPTS, Integer.parseInt(numTranscripts.getSelectedItem().toString()));
+		    	int noUpdated = getContentResolver().update(CONTENT_URI, values,SELECTION,null);
+		    	
+		    	finish(); 
+			    }
+			    catch(NumberFormatException e){ 
+	            	Toast.makeText(this, "Please enter a valid application fee", Toast.LENGTH_LONG).show();
+	            } 
 	    }
 	@Override
 	public Loader<Cursor> onCreateLoader(int arg0, Bundle arg1) {

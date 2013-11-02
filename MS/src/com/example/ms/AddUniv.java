@@ -1,6 +1,14 @@
 package com.example.ms;
 
+import static com.example.database.Constants.DEADLINE;
+import static com.example.database.Constants.FEE;
+import static com.example.database.Constants.NAME;
+import static com.example.database.Constants.NO_LORS;
+import static com.example.database.Constants.NO_TRANSCRIPTS;
+import static com.example.database.Constants.TABLE_NAME;
+
 import java.util.Calendar;
+
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.DatePickerDialog;
@@ -8,10 +16,8 @@ import android.app.Dialog;
 import android.app.DialogFragment;
 import android.app.Fragment;
 import android.content.ContentValues;
-import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
@@ -21,8 +27,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.TextView;
-import static com.example.database.Constants.*;
+import android.widget.Toast;
 
 @SuppressLint("NewApi")
 public class AddUniv extends Activity {
@@ -117,21 +122,42 @@ public class AddUniv extends Activity {
 	    }
 	}
 	   public void commitChanges(View view) {
-	    	ContentValues values = new ContentValues();
-	    	String nullString = "Null";
-	    	if(univName.getText() != null)
-	    		values.put(NAME, univName.getText().toString());
-	    	else values.put(NAME, nullString);
-	    	Log.d("lol", univName.getText().toString());
-	    	if(appFee.getText() != null)
-	    		values.put(FEE, Double.parseDouble(appFee.getText().toString()));
-	    	else values.put(FEE, (Double)0.0);
-	    	if(deadline.getText() != null)
-	    		values.put(DEADLINE, deadline.getText().toString());
-	    	else values.put(DEADLINE, nullString);
-	    	values.put(NO_LORS, Integer.parseInt(numLors.getSelectedItem().toString()));
-	    	values.put(NO_TRANSCRIPTS, Integer.parseInt(numTranscripts.getSelectedItem().toString()));
-	    	mNewUri = getContentResolver().insert(CONTENT_URI, values);
-	    	finish();
+		   try
+	   		{
+		           ContentValues values = new ContentValues();
+		           String number="0";
+		           String nullString="Null";
+		          
+		           String editText = univName.getText().toString();
+		           if (editText.matches("")) 
+		           	values.put(NAME, nullString);
+		           else
+		           values.put(NAME, editText);
+		           
+		           
+		          
+		           editText=appFee.getText().toString();
+		           if(editText.matches(""))
+		           	values.put(FEE, Double.valueOf(number).doubleValue());
+		           else
+		               values.put(FEE, Double.parseDouble(appFee.getText().toString()));
+		          
+		           	
+		           editText = deadline.getText().toString();
+		            if (editText.matches("")) 
+		            	values.put(DEADLINE, nullString);
+		            else
+			    	values.put(DEADLINE, editText);
+		            
+		           values.put(NO_LORS, Integer.parseInt(numLors.getSelectedItem().toString()));
+		           values.put(NO_TRANSCRIPTS, Integer.parseInt(numTranscripts.getSelectedItem().toString()));
+		           mNewUri = getContentResolver().insert(CONTENT_URI, values);
+		           
+		           finish();
+           }
+           catch(NumberFormatException e){ 
+        	   		Toast.makeText(this, "Please enter a valid application fee", Toast.LENGTH_LONG).show();
+           }
+	   
 	    }
 }
