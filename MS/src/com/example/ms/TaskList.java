@@ -15,14 +15,11 @@ import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
-import android.view.View;
-
 import com.example.database.Data;
 public class TaskList extends FragmentActivity{
  
@@ -182,6 +179,7 @@ public class TaskList extends FragmentActivity{
  {	
 	 
 	Bundle bundle=new Bundle();
+	bundle.putLong("id", id);
  	bundle.putString("UniName", uniName);
  	bundle.putString("deadline", app_deadline);
  	bundle.putString("fee", app_fee);

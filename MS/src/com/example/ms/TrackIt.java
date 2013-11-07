@@ -5,16 +5,19 @@ import static com.example.database.Constants.NAME;
 import static com.example.database.Constants.TABLE_NAME;
 import android.net.Uri;
 import android.os.Bundle;
+
 import android.app.Activity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 import android.support.v4.app.NavUtils;
 import android.content.CursorLoader;
+import android.content.Intent;
 import android.content.Loader;
 import android.content.SharedPreferences;
 import android.database.Cursor;
@@ -28,8 +31,11 @@ public class TrackIt extends Activity implements LoaderManager.LoaderCallbacks<C
 	static final String SELECTION =  "((" + NAME + " NOT NULL) AND (" + NAME + " != '' ))";
 	private static final int LIST_ID = 0;
 	TextView name,online,aid,gre,toefl;
-	View separator, columnSeparator;
+	View separator;
+	String s;
 	TableLayout tl;
+	TableRow.LayoutParams textParams;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -87,21 +93,28 @@ public class TrackIt extends Activity implements LoaderManager.LoaderCallbacks<C
 	public void onLoadFinished(Loader<Cursor> arg0, Cursor cursor) {
 		// TODO Auto-generated method stub
 		
-		String s;
 		Boolean b ;
 		Integer i=1;
 		cursor.moveToPosition(-1);
 		while(cursor.moveToNext())
-		{
-			s=cursor.getString(1);
-			name=new TextView(this);
+		{	
+			s = cursor.getString(1);
+			name = new TextView(this);
+			name.setBackgroundColor(Color.WHITE);
 			name.setText(s);
 			SharedPreferences preferences = getApplicationContext().getSharedPreferences(s, android.content.Context.MODE_PRIVATE);
 			TableRow row= new TableRow(this);
 	        TableRow.LayoutParams lp = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT,25);
 	        row.setLayoutParams(lp);
+	        
+	        textParams = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT,
+	                TableRow.LayoutParams.WRAP_CONTENT);
+	        textParams.setMargins(1,0,1,0);
+	        
+	        
+	        //Shared preference value check
 	        b=preferences.getBoolean("Online",false);
-			online=new TextView(this);
+			online = new TextView(this);
 			if(b.equals(true))
 				online.setBackgroundColor(Color.GREEN);
 			else
@@ -127,36 +140,48 @@ public class TrackIt extends Activity implements LoaderManager.LoaderCallbacks<C
 				toefl.setBackgroundColor(Color.GREEN);
 			else
 				toefl.setBackgroundColor(Color.RED);
-			columnSeparator = new View(getApplicationContext());
-			//columnSeparator.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.2));
-			//columnSeparator.setBackgroundColor(Color.BLACK);
-			ViewGroup.LayoutParams params =new ViewGroup.LayoutParams(1, 25);
-			columnSeparator.setLayoutParams(params);
+			name.setMaxLines(1);
+			name.setClickable(true);
+		
+			name.setMaxWidth(17);
+			name.setMaxLines(1);
+			
+			row.addView(name,textParams);
+			row.addView(online,textParams);
+			row.addView(aid,textParams);
+			row.addView(gre,textParams);
+			row.addView(toefl,textParams);
+			
+			
+			name.setOnClickListener(new View.OnClickListener() {
 
-			row.addView(name);
-			//row.addView(rowSep1);
-			row.addView(online);
-			//row.addView(rowSep1);
-			row.addView(aid);
-			//row.addView(rowSep1);
-			row.addView(gre);
-			//row.addView(rowSep1);
-			row.addView(toefl);
-			//row.addView(rowSep1);
+			    @Override
+			    public void onClick(View view) {
+			    	TextView tv=new TextView(getApplicationContext());
+			    	tv=(TextView)view;
+			    	Intent intent=new Intent(TrackIt.this,Name.class);
+					intent.putExtra("name", tv.getText());
+					startActivity(intent);
+
+			    }
+			});
+			
+			
 			tl.addView(row,i);
 			separator = new View(getApplicationContext());
 			separator.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 2));
 			separator.setBackgroundColor(Color.BLACK);
 			tl.addView(separator,i+1);
 			i=i+2;
+			}
+			
 		}
-	}
-				
 	
+				
 	@Override
 	public void onLoaderReset(Loader<Cursor> arg0) {
 		// TODO Auto-generated method stub
 		
 	}
-
+	
 }

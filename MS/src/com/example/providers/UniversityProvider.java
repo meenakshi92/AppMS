@@ -41,18 +41,12 @@ public class UniversityProvider extends ContentProvider {
 	@Override
 	public Uri insert(Uri uri, ContentValues values) {
 		// TODO Auto-generated method stub
-		String SELECTION =  "((" + NAME + " NOT NULL) AND (" + NAME + " != '' ))";
-		String[] PROJECTION = new String[]{_ID,NAME,DEADLINE,FEE,NO_LORS,NO_TRANSCRIPTS};
-		long id=0; String TAG = "Test";
+		
 		SQLiteDatabase db = data.getWritableDatabase();
-		id=db.insert(TABLE_NAME,null,values);
+		long id = db.insert(TABLE_NAME,null,values);
 		getContext().getContentResolver().notifyChange(uri, null);
-		Log.d(TAG, "Added to " + TABLE_NAME);
-		Cursor cursor = db.query(TABLE_NAME, PROJECTION, SELECTION, null, null, null, null);
-		cursor.moveToFirst();
-		while(cursor.moveToNext())
-			for(int i = 0; i<cursor.getColumnCount(); i++)
-				Log.d(TAG, cursor.getString(i));
+		Log.d("Test", "Added to " + TABLE_NAME);
+       
 		return Uri.parse(TABLE_NAME + "/" + id);		
 	}
 
@@ -80,6 +74,8 @@ public class UniversityProvider extends ContentProvider {
 		int noRowsUpdated = 0;
 		SQLiteDatabase db = data.getWritableDatabase();
 		noRowsUpdated = db.update(TABLE_NAME, values, selection, selectionArgs);
+		Cursor cursor = db.query(TABLE_NAME, null, null, null, null, null, null);
+		Log.d("InsideContentProvUpdate", DatabaseUtils.dumpCursorToString(cursor));
 		return noRowsUpdated;
 	}
 	

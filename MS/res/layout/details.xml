@@ -14,10 +14,17 @@
 		android:layout_height="fill_parent"
 		android:scaleType="fitXY"
 		android:contentDescription="@string/sky"/>
+
+    <ScrollView
+        android:id="@+id/scrollView_details"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:scrollbars="vertical">
+        
     
     <LinearLayout
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical"
     android:padding="30sp">
   
@@ -95,16 +102,7 @@
   	       android:layout_width="wrap_content"
   	       />
   	   
-  <!--    <ImageView 
-		android:src="@drawable/graduate"
-	    android:gravity="bottom" 
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:maxHeight="25sp"
-		android:maxWidth="25sp"
-		android:contentDescription="@string/graduate"/>
-		-->
-  	
-
-</LinearLayout>
+  
+		</LinearLayout>
+	</ScrollView>
 </FrameLayout>

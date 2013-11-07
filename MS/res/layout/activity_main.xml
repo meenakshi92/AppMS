@@ -13,7 +13,8 @@
 	    android:layout_gravity="fill" 
 		android:layout_width="fill_parent"
 		android:layout_height="fill_parent"
-		android:contentDescription="@string/desc">
+		android:contentDescription="@string/desc"
+		android:scaleType="fitXY">
 	</ImageView>
 	<TextView
 	    android:layout_height="wrap_content"

@@ -54,24 +54,26 @@
     <string name="table_lor">Lor</string>
     <string name="table_admit">Admit</string>
     <string name="title_activity_process">Process</string>
-	<string name="about_title">About MS Application Tracker</string>
-	<string name="ok_message">OK!</string>
-	<string name="about_message">Use this app to organize your MS 
+    <string name="about_title">About MS Application Tracker</string>
+    <string name="ok_message">OK!</string>
+    <string name="about_message">Use this app to organize your MS 
 	    						Application process.\n
 	    						1. Add your list of universities and start the tracker\n 
 	    						2. Use the pre-defined checklist and update it on the go \n
-	    						3. Generate a report and view all statuses at once
-	    						</string>
-	<string name="editRecos">Edit Recommender Details</string>
-	<string name="profName">Recommender name</string>
-	<string name="initials">Initials</string>
-	<string name="step1"> PHASE 1:\n\n Information research about universities- through Websites and brochures \n\n\n\t\t\t\t\t\t*Scroll right to learn more*</string>
-	<string name="step2"> PHASE 2:\n\n Take the GRE/TOEFL test </string>
-	<string name="step3"> PHASE 3:\n\n Shortlist universitites based on your area of interest, cost, availabaility of aid, university facilities and location  </string>
-	<string name="step4"> PHASE 4:\n\n Prepare your Statement of purpose and resume. A statement of purpose (SoP) is a concise essay about one\'s career goals, identified means to achieve them and accomplishments so far towards those goals. Apply for transcripts from universities attended. Approach professors/internship supervisors/employers for letters of recommendation. </string>
-	<string name="step5"> PHASE 5:\n\n Complete online applications of the universities shortlisted.  </string>
-	<string name="step6"> PHASE 6:\n\n University sends I20 after admit.  </string>
-	<string name="step7"> PHASE 7:\n\n Apply for visa </string>
-	<string name="step8"> PHASE 8:\n\n Prepare for departure. There are a lot of websites that help you prepare a list of necessary things to pack. </string>
-	<string name="step9"> PHASE 9:\n\n  Courses commence. Well done!</string>
+	    						3. Generate a report and view all statuses at once</string>
+    <string name="editRecos">Edit Recommender Details</string>
+    <string name="profName">Recommender name</string>
+    <string name="initials">Initials</string>
+    <string name="step1"> PHASE 1:\n\n Information research about universities- through Websites and brochures \n\n\n\t\t\t\t\t\t*Scroll right to learn more*</string>
+    <string name="step2"> PHASE 2:\n\n Take the GRE/TOEFL test </string>
+    <string name="step3"> PHASE 3:\n\n Shortlist universitites based on your area of interest, cost, availabaility of aid, university facilities and location  </string>
+    <string name="step4"> PHASE 4:\n\n Prepare your Statement of purpose and resume. A statement of purpose (SoP) is a concise essay about one\'s career goals, identified means to achieve them and accomplishments so far towards those goals. Apply for transcripts from universities attended. Approach professors/internship supervisors/employers for letters of recommendation. </string>
+    <string name="step5"> PHASE 5:\n\n Complete online applications of the universities shortlisted.  </string>
+    <string name="step6"> PHASE 6:\n\n University sends I20 after admit.  </string>
+    <string name="step7"> PHASE 7:\n\n Apply for visa </string>
+    <string name="step8"> PHASE 8:\n\n Prepare for departure. There are a lot of websites that help you prepare a list of necessary things to pack. </string>
+    <string name="step9"> PHASE 9:\n\n  Courses commence. Well done!</string>
+    <string name="title_activity_name">University Name</string>
+    <string name="title_activity_recos">Recos</string>
+
 </resources>

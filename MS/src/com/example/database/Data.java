@@ -1,12 +1,7 @@
 package com.example.database;
 
 import static android.provider.BaseColumns._ID;
-import static com.example.database.Constants.TABLE_NAME;
-import static com.example.database.Constants.NAME;
-import static com.example.database.Constants.FEE;
-import static com.example.database.Constants.NO_LORS;
-import static com.example.database.Constants.DEADLINE;
-import static com.example.database.Constants.NO_TRANSCRIPTS;
+import static com.example.database.Constants.*;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -20,7 +15,11 @@ public class Data extends SQLiteOpenHelper {
 													+DEADLINE+" STRING,"
 													+FEE+" DOUBLE,"
 													+NO_LORS+" INTEGER,"
-													+NO_TRANSCRIPTS+" INTEGER);";
+													+NO_TRANSCRIPTS+" INTEGER, " 
+													+RECO_NAME + " STRING, " 
+													+RECO_INIT + " STRING, " 
+													+RECO_EMAIL + " STRING, "
+													+RECO_CHECK + " BOOLEAN DEFAULT 0" + ");";
 	private final static String SQL_DELETE_ENTRIES="DROP TABLE IF EXISTS "+TABLE_NAME;
 	public Data(Context ctx)
 	{	super(ctx, DATABASE_NAME,null,DATABASE_VERSION);

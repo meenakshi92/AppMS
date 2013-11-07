@@ -51,7 +51,7 @@
                 android:value="com.example.ms.MainActivity" />
         </activity>
 
-      	 <provider
+        <provider
             android:name="@string/name"
             android:authorities="@string/name" />
 
@@ -62,6 +62,24 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.ms.MainActivity" />
+        </activity>
+        <activity
+            android:name="com.example.ms.Name"
+            android:label="@string/title_activity_name"
+            android:parentActivityName="com.example.ms.TrackIt"
+            android:theme="@android:style/Theme.Dialog" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.ms.TrackIt" />
+        </activity>
+        <activity
+            android:name="com.example.ms.Recos"
+            android:label="@string/title_activity_recos"
+            android:parentActivityName="com.example.ms.TaskList" 
+            android:theme="@android:style/Theme.Holo.Dialog">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.ms.TaskList" />
         </activity>
     </application>
 
