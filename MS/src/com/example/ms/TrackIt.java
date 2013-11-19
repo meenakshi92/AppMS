@@ -9,9 +9,12 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
-import android.view.View.OnClickListener;
+import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
+
+import android.widget.ScrollView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -22,6 +25,8 @@ import android.content.Loader;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Color;
+import android.graphics.Matrix;
+import android.graphics.PointF;
 import android.app.LoaderManager;
 
 public class TrackIt extends Activity implements LoaderManager.LoaderCallbacks<Cursor>{
@@ -30,11 +35,26 @@ public class TrackIt extends Activity implements LoaderManager.LoaderCallbacks<C
 	static final String[] PROJECTION = new String[]{_ID,NAME};
 	static final String SELECTION =  "((" + NAME + " NOT NULL) AND (" + NAME + " != '' ))";
 	private static final int LIST_ID = 0;
-	TextView name,online,aid,gre,toefl;
+	TextView name,online,aid,gre,toefl,lor,admit,finance;
 	View separator;
+	ScrollView viewer;
 	String s;
 	TableLayout tl;
 	TableRow.LayoutParams textParams;
+	Matrix matrix = new Matrix();
+ 	Matrix savedMatrix = new Matrix();
+
+	// We can be in one of these 3 states
+	final int NONE = 0;
+	final int DRAG = 1;
+	final int ZOOM = 2;
+	int mode = NONE;
+	
+	PointF start=new PointF();
+	PointF mid=new PointF();
+	float oldDist=1f;
+	float[]arr=new float[9];
+	
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -42,10 +62,92 @@ public class TrackIt extends Activity implements LoaderManager.LoaderCallbacks<C
 		setContentView(R.layout.activity_track_it);
 		// Show the Up button in the action bar.
 		setupActionBar();
-		tl = (TableLayout) findViewById(R.id.tableLayout);
 		
+		tl = (TableLayout) findViewById(R.id.tableLayout);
+		viewer = (ScrollView) findViewById(R.id.scrollview_trackit);
+        viewer.setOnTouchListener(new OnTouchListener(){
+       
+			@Override
+			 
+			public boolean onTouch(View view, MotionEvent event) {
+				int maskedAction = event.getActionMasked();
+				
+				switch (maskedAction) {
+					case MotionEvent.ACTION_DOWN:
+						savedMatrix.set(matrix);
+						start.set(event.getX(), event.getY());
+						mode = DRAG;
+						break;
+				
+					case MotionEvent.ACTION_UP:
+					
+					case MotionEvent.ACTION_POINTER_UP:
+						mode = NONE;
+						break;
+				
+					case MotionEvent.ACTION_POINTER_DOWN:
+						oldDist = spacing(event);
+						if (oldDist > 10f) {
+						savedMatrix.set(matrix);
+						midPoint(mid, event);
+						mode = ZOOM;
+						
+						}
+					case MotionEvent.ACTION_MOVE:
+					if (mode == DRAG) {
+						if(viewer.getScaleX()==1 && viewer.getScaleY()==1){
+							mode=NONE;
+						}
+						else
+						{
+						matrix.set(savedMatrix);
+						matrix.postTranslate(event.getX() - start.x,
+								event.getY() - start.y);
+						}
+						
+					}
+					else if (mode == ZOOM) {
+						float newDist = spacing(event);
+						if(newDist-oldDist<0)
+							if(viewer.getScaleX()<=1 ||viewer.getScaleY()<=1)
+							{mode=NONE;
+							break;}
+						if (newDist > 10f) {
+						matrix.set(savedMatrix);
+						float scale = newDist / oldDist;
+						matrix.postScale(scale, scale, mid.x, mid.y);
+						}
+						}
+					break;
+					}
+				
+			    
+					matrix.getValues(arr);
+					viewer.setTranslationX(arr[Matrix.MTRANS_X]);
+					viewer.setTranslationY(arr[Matrix.MTRANS_Y]);
+					viewer.setScaleX(arr[Matrix.MSCALE_X]);
+					viewer.setScaleY(arr[Matrix.MSCALE_Y]);
+				
+				
+					return true;
+			
+			}
+			private float spacing(MotionEvent event) {
+				float x = event.getX(0) - event.getX(1);
+				float y = event.getY(0) - event.getY(1);
+				return (float)Math.sqrt(x * x + y * y);
+				}
+			
+			private void midPoint(PointF point, MotionEvent event) {
+				float x = event.getX(0) + event.getX(1);
+				float y = event.getY(0) + event.getY(1);
+				point.set(x / 2, y / 2);
+				}
+        	
+        });
 		getLoaderManager().initLoader(LIST_ID,null, this);
 	}
+	
 
 	/**
 	 * Set up the {@link android.app.ActionBar}.
@@ -126,6 +228,7 @@ public class TrackIt extends Activity implements LoaderManager.LoaderCallbacks<C
 				aid.setBackgroundColor(Color.GREEN);
 			else
 				aid.setBackgroundColor(Color.RED);
+		
 			
 			b=preferences.getBoolean("Gre",false);
 			gre=new TextView(this);
@@ -140,6 +243,29 @@ public class TrackIt extends Activity implements LoaderManager.LoaderCallbacks<C
 				toefl.setBackgroundColor(Color.GREEN);
 			else
 				toefl.setBackgroundColor(Color.RED);
+			
+			b=preferences.getBoolean("lors",false);
+			lor=new TextView(this);
+			if(b.equals(true))
+				lor.setBackgroundColor(Color.GREEN);
+			else
+				lor.setBackgroundColor(Color.RED);
+			
+			b=preferences.getBoolean("Admit",false);
+			admit=new TextView(this);
+			if(b.equals(true))
+				admit.setBackgroundColor(Color.GREEN);
+			else
+				admit.setBackgroundColor(Color.RED);
+			
+			b=preferences.getBoolean("Financial_documents",false);
+			finance=new TextView(this);
+			if(b.equals(true))
+				finance.setBackgroundColor(Color.GREEN);
+			else
+				finance.setBackgroundColor(Color.RED);
+			
+			
 			name.setMaxLines(1);
 			name.setClickable(true);
 		
@@ -151,6 +277,8 @@ public class TrackIt extends Activity implements LoaderManager.LoaderCallbacks<C
 			row.addView(aid,textParams);
 			row.addView(gre,textParams);
 			row.addView(toefl,textParams);
+			row.addView(lor,textParams);
+			row.addView(admit,textParams);
 			
 			
 			name.setOnClickListener(new View.OnClickListener() {
@@ -183,5 +311,7 @@ public class TrackIt extends Activity implements LoaderManager.LoaderCallbacks<C
 		// TODO Auto-generated method stub
 		
 	}
+	
+	
 	
 }

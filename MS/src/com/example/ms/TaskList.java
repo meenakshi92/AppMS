@@ -69,9 +69,9 @@ public class TaskList extends FragmentActivity{
           Documents.class, null);
         TabsAdapter.addTab(bar.newTab().setText("Post application"),
           PostApp.class, null);
-       
-      
-        
+        TabsAdapter.addTab(bar.newTab().setText("Recommendations"),
+                RecoPage.class, null);
+              
         if (savedInstanceState != null) {
             bar.setSelectedNavigationItem(savedInstanceState.getInt("tab", 0));
         }

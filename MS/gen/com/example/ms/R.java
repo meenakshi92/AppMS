@@ -38,8 +38,9 @@ public final class R {
         public static final int Date_value=0x7f0a001f;
         public static final int Fee=0x7f0a001c;
         public static final int Fee_value=0x7f0a001d;
+        public static final int RecoPageTable=0x7f0a0031;
         public static final int about=0x7f0a0012;
-        public static final int action_settings=0x7f0a0038;
+        public static final int action_settings=0x7f0a0036;
         public static final int add=0x7f0a0019;
         public static final int app_fee=0x7f0a0002;
         public static final int app_fee1=0x7f0a000b;
@@ -57,11 +58,11 @@ public final class R {
         public static final int checkBox_pa6=0x7f0a002f;
         public static final int checkBox_pa7=0x7f0a0030;
         public static final int checkbox_univ=0x7f0a0028;
-        public static final int content=0x7f0a0037;
+        public static final int content=0x7f0a0035;
         public static final int deadline=0x7f0a0003;
         public static final int deadline1=0x7f0a000c;
-        public static final int delete=0x7f0a003a;
-        public static final int edit=0x7f0a0039;
+        public static final int delete=0x7f0a0038;
+        public static final int edit=0x7f0a0037;
         public static final int editRecos=0x7f0a0032;
         public static final int initials=0x7f0a0027;
         public static final int lors_value=0x7f0a0020;
@@ -76,11 +77,8 @@ public final class R {
         public static final int pick_date1=0x7f0a000d;
         public static final int process=0x7f0a0014;
         public static final int profName=0x7f0a0026;
-        public static final int recoCheck=0x7f0a0036;
-        public static final int recoEmail=0x7f0a0035;
-        public static final int recoInitials=0x7f0a0034;
-        public static final int recoList=0x7f0a0031;
-        public static final int recoName=0x7f0a0033;
+        public static final int recoAddScroll=0x7f0a0033;
+        public static final int recosLinear=0x7f0a0034;
         public static final int scrollView_details=0x7f0a001a;
         public static final int scrollview_trackit=0x7f0a0016;
         public static final int tableLayout=0x7f0a0017;
@@ -111,16 +109,17 @@ public final class R {
         public static final int list_tracklist=0x7f03000d;
         public static final int list_university_list=0x7f03000e;
         public static final int postapp=0x7f03000f;
-        public static final int recolistrow=0x7f030010;
-        public static final int step1=0x7f030011;
-        public static final int step2=0x7f030012;
-        public static final int step3=0x7f030013;
-        public static final int step4=0x7f030014;
-        public static final int step5=0x7f030015;
-        public static final int step6=0x7f030016;
-        public static final int step7=0x7f030017;
-        public static final int step8=0x7f030018;
-        public static final int step9=0x7f030019;
+        public static final int recopage=0x7f030010;
+        public static final int recos=0x7f030011;
+        public static final int step1=0x7f030012;
+        public static final int step2=0x7f030013;
+        public static final int step3=0x7f030014;
+        public static final int step4=0x7f030015;
+        public static final int step5=0x7f030016;
+        public static final int step6=0x7f030017;
+        public static final int step7=0x7f030018;
+        public static final int step8=0x7f030019;
+        public static final int step9=0x7f03001a;
     }
     public static final class menu {
         public static final int add_univ=0x7f090000;
@@ -131,10 +130,11 @@ public final class R {
         public static final int main=0x7f090005;
         public static final int name=0x7f090006;
         public static final int process=0x7f090007;
-        public static final int recos=0x7f090008;
-        public static final int task_list=0x7f090009;
-        public static final int track_it=0x7f09000a;
-        public static final int univeristy_list=0x7f09000b;
+        public static final int reco_page=0x7f090008;
+        public static final int recos=0x7f090009;
+        public static final int task_list=0x7f09000a;
+        public static final int track_it=0x7f09000b;
+        public static final int univeristy_list=0x7f09000c;
     }
     public static final class string {
         public static final int Application_Fee=0x7f070027;
@@ -196,6 +196,7 @@ public final class R {
         public static final int title_activity_edit=0x7f07002a;
         public static final int title_activity_name=0x7f070044;
         public static final int title_activity_process=0x7f070034;
+        public static final int title_activity_reco_page=0x7f070046;
         public static final int title_activity_recos=0x7f070045;
         public static final int title_activity_task_list=0x7f070010;
         public static final int title_activity_track_it=0x7f07002b;

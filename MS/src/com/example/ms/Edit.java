@@ -42,7 +42,6 @@ public class Edit extends Activity implements LoaderManager.LoaderCallbacks<Curs
 	private static final String[] PROJECTION = new String[]{_ID, NAME, DEADLINE,FEE,NO_LORS,NO_TRANSCRIPTS};
 	private static String SELECTION = null;
 	private long id;
-	private int noUpdated;
 	//Database elements
 	Uri mNewUri;
 	Uri CONTENT_URI=Uri.parse("content://" + "com.example.providers.UniversityProvider" + "/" + "University");
@@ -159,7 +158,7 @@ public class Edit extends Activity implements LoaderManager.LoaderCallbacks<Curs
 	            
 		    	values.put(NO_LORS, Integer.parseInt(numLors.getSelectedItem().toString()));
 		    	values.put(NO_TRANSCRIPTS, Integer.parseInt(numTranscripts.getSelectedItem().toString()));
-		    	noUpdated = getContentResolver().update(CONTENT_URI, values,SELECTION,null);
+		    	getContentResolver().update(CONTENT_URI, values,SELECTION,null);
 		    	
 		    	finish(); 
 			    }

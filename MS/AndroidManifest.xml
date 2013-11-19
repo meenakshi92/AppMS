@@ -75,8 +75,16 @@
         <activity
             android:name="com.example.ms.Recos"
             android:label="@string/title_activity_recos"
-            android:parentActivityName="com.example.ms.TaskList" 
-            android:theme="@android:style/Theme.Holo.Dialog">
+            android:parentActivityName="com.example.ms.TaskList"
+            android:theme="@android:style/Theme.Holo.Dialog" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.ms.TaskList" />
+        </activity>
+        <activity
+            android:name="com.example.ms.RecoPage"
+            android:label="@string/title_activity_reco_page"
+            android:parentActivityName="com.example.ms.TaskList" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.ms.TaskList" />

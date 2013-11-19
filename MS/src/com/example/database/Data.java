@@ -15,22 +15,27 @@ public class Data extends SQLiteOpenHelper {
 													+DEADLINE+" STRING,"
 													+FEE+" DOUBLE,"
 													+NO_LORS+" INTEGER,"
-													+NO_TRANSCRIPTS+" INTEGER, " 
-													+RECO_NAME + " STRING, " 
-													+RECO_INIT + " STRING, " 
-													+RECO_EMAIL + " STRING, "
-													+RECO_CHECK + " BOOLEAN DEFAULT 0" + ");";
+													+NO_TRANSCRIPTS+" INTEGER);";
+	private final static String SQL_RECO_CREATE_ENTRIES= "CREATE TABLE "+RECO_TABLE_NAME+
+			"("+_ID+" INTEGER PRIMARY KEY AUTOINCREMENT, "
+			+UNI_ID+" INTEGER, "
+			+RECO_NAME + " STRING, " 
+			+RECO_INIT + " STRING, " 
+			+RECO_EMAIL + " STRING, "
+			+RECO_CHECK + " BOOLEAN DEFAULT 0" + ");";
 	private final static String SQL_DELETE_ENTRIES="DROP TABLE IF EXISTS "+TABLE_NAME;
+	private final static String SQL_RECO_DELETE_ENTRIES="DROP TABLE IF EXISTS "+TABLE_NAME;
 	public Data(Context ctx)
 	{	super(ctx, DATABASE_NAME,null,DATABASE_VERSION);
 	
 	}
 	public void onCreate(SQLiteDatabase db)
 	{	db.execSQL(SQL_CREATE_ENTRIES);
-		
+		db.execSQL(SQL_RECO_CREATE_ENTRIES);
 	}
 	public void onUpgrade(SQLiteDatabase db,int oldVersion,int newVersion)
 	{	db.execSQL(SQL_DELETE_ENTRIES);
+		db.execSQL(SQL_RECO_DELETE_ENTRIES);
 		onCreate(db);
 		
 	}

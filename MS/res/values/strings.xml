@@ -75,5 +75,6 @@
     <string name="step9"> PHASE 9:\n\n  Courses commence. Well done!</string>
     <string name="title_activity_name">University Name</string>
     <string name="title_activity_recos">Recos</string>
+    <string name="title_activity_reco_page">RecoPage</string>
 
 </resources>
