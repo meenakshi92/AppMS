@@ -17,15 +17,19 @@
     <string name="about">About</string>
     <string name="button_add_univ">Add</string>
     <string name="title_activity_add_univ">Add a University</string>
+    <string name="title_activity_edit_univ">Edit University Details</string>
     <string name="title_activity_task_list">Task List</string>
     <string name="edit_text_uname">Enter University Name</string>
     <string name="edit_text_appfee">Application Fee</string>
     <string name="edit_text_setdate">Set Date</string>
+    <string name="edit_text_username">Enter username of application</string>
+    <string name="edit_text_passwd">Enter password</string>
     <string name="pick_date">Pick Date</string>
     <string name="num_lors">Number of LoRs</string>
     <string name="num_transcripts">Number of Transcripts</string>
     <string name="lor">Letters of Recommendation (LORs)</string>
     <string name="sop">Statement of Purpose (SOP)</string>
+    <string name="publications">Scanned copies of awards/\n\tpublications</string>
     <string name="transcript">Transcripts - Academic portfolio</string>
     <string name="resume">Resume</string>
     <string name="name">com.example.providers.UniversityProvider</string>
@@ -36,6 +40,8 @@
     <string name="Date">Deadline</string>
     <string name="lors">#LORs</string>
     <string name="transcripts">#Transcripts</string>
+    <string name="details_username">Username of application</string>
+    <string name="details_passwd">Password</string>
     <string name="online">Online Application</string>
     <string name="Gre">Sent GRE Score?</string>
     <string name="Toefl">Sent  Toefl Score?</string>
@@ -46,9 +52,10 @@
     <string name="title_activity_edit">Edit</string>
     <string name="title_activity_track_it">TrackIt</string>
     <string name="addToTrack">Track</string>
-    <string name="table_uniName">University name</string>
-    <string name="table_online">Online application</string>
-    <string name="table_aid">Financial aid</string>
+    <string name="table_uniName">Name</string>
+    <string name="table_online">Online</string>
+    <string name="table_aid">Applied for aid?</string>
+    <string name="trackit_aid">Aid</string>
     <string name="table_gre">GRE Score</string>
     <string name="table_toefl">Toefl Score</string>
     <string name="table_lor">Lor</string>
@@ -57,14 +64,25 @@
     <string name="about_title">About MS Application Tracker</string>
     <string name="ok_message">OK!</string>
     <string name="about_message">Use this app to organize your MS 
-	    						Application process.\n
-	    						1. Add your list of universities and start the tracker\n 
-	    						2. Use the pre-defined checklist and update it on the go \n
-	    						3. Generate a report and view all statuses at once</string>
+	    						Application process.\n\n
+	    						<b>1.Process:</b>\n
+	    						-Familiarise yourself with all that has to be done to pursue your masters degree abroad.\n\n
+	    						<b>2.Uni list:</b> \n
+	    						-Add the list of universities you\'re going to apply to.\n
+	    						-Click on each university name to view its details, recommenders\' info, and predefined checklists of the documents required and post application tasks to be completed.\n
+	    						-Long click university name(s) to edit university details (or) delete universities.\n\n
+	    						<b>3.Tracker:</b>\n
+	    						-Use this tool to view the statuses of all universities at once, to keep a track on how much of the application process is complete.\n
+	    						-Column 1 (Online) indicates whether the online application is complete and whether the application fee has been paid.\n
+	    						-Column 2 (Aid?) indicates whether you\'ve applied for aid.\n
+	    						-Column 3 and 4 indicate if you\'ve sent official gre and toefl scores\n
+	    						-Column 5(Lor) indicates if all your recommenders have submitted their letters\n
+	    						-Column 6(Admit)indicates if you\'ve been admitted.\n
+	    						</string>
     <string name="editRecos">Edit Recommender Details</string>
     <string name="profName">Recommender name</string>
     <string name="initials">Initials</string>
-    <string name="step1"> PHASE 1:\n\n Information research about universities- through Websites and brochures \n\n\n\t\t\t\t\t\t*Scroll right to learn more*</string>
+    <string name="step1"> PHASE 1:\n\n Information research about universities- through Websites and brochures \n\n\n*Scroll right to learn more*</string>
     <string name="step2"> PHASE 2:\n\n Take the GRE/TOEFL test </string>
     <string name="step3"> PHASE 3:\n\n Shortlist universitites based on your area of interest, cost, availabaility of aid, university facilities and location  </string>
     <string name="step4"> PHASE 4:\n\n Prepare your Statement of purpose and resume. A statement of purpose (SoP) is a concise essay about one\'s career goals, identified means to achieve them and accomplishments so far towards those goals. Apply for transcripts from universities attended. Approach professors/internship supervisors/employers for letters of recommendation. </string>
@@ -76,5 +94,6 @@
     <string name="title_activity_name">University Name</string>
     <string name="title_activity_recos">Recos</string>
     <string name="title_activity_reco_page">RecoPage</string>
+    
 
 </resources>

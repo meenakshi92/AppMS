@@ -6,6 +6,8 @@ import static com.example.database.Constants.NAME;
 import static com.example.database.Constants.NO_LORS;
 import static com.example.database.Constants.NO_TRANSCRIPTS;
 import static com.example.database.Constants.TABLE_NAME;
+import static com.example.database.Constants.USERNAME;
+import static com.example.database.Constants.PASSWORD;
 
 import java.util.Calendar;
 
@@ -32,7 +34,7 @@ import android.widget.Toast;
 @SuppressLint("NewApi")
 public class AddUniv extends Activity {
 
-	static EditText univName, appFee, deadline;
+	static EditText univName, appFee, deadline,username,password;
 	Button pickDate, send;
 	Spinner numLors, numTranscripts;
 	
@@ -51,6 +53,9 @@ public class AddUniv extends Activity {
 		univName = (EditText) findViewById(R.id.univ_name);
 	    appFee = (EditText) findViewById(R.id.app_fee);
 	    deadline = (EditText) findViewById(R.id.deadline);
+	    username=(EditText) findViewById(R.id.univUsernameAdd);
+	    password=(EditText)findViewById(R.id.univPasswdAdd);
+	    
 	    
 	    pickDate = (Button) findViewById(R.id.pick_date);
 	    numLors = (Spinner) findViewById(R.id.num_lors);
@@ -60,7 +65,7 @@ public class AddUniv extends Activity {
 	    adapterLor.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 	    numLors.setAdapter(adapterLor);
 	    
-	    ArrayAdapter<CharSequence> adapterTrans = ArrayAdapter.createFromResource(this, R.array.num_lors, android.R.layout.simple_spinner_item);
+	    ArrayAdapter<CharSequence> adapterTrans = ArrayAdapter.createFromResource(this, R.array.num_transcripts, android.R.layout.simple_spinner_item);
 	    adapterTrans.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 	    numTranscripts.setAdapter(adapterTrans);
 	}
@@ -123,37 +128,55 @@ public class AddUniv extends Activity {
 	}
 	   public void commitChanges(View view) {
 		   try
-	   		{
+	   		{	for(int i=0;i<1;i++){	
+	   			
 		           ContentValues values = new ContentValues();
 		           String number="0";
-		           String nullString="Null";
+		           String nullString="Not specified";
 		          
 		           String editText = univName.getText().toString();
 		           if (editText.matches("")) 
-		           	values.put(NAME, nullString);
+		           {	Toast.makeText(this, "Please enter the name of the university", Toast.LENGTH_LONG).show();
+	            		break;
+	            		//values.put(NAME, nullString);
+		           }
 		           else
-		           values.put(NAME, editText);
+		        	   values.put(NAME, editText);
 		           
-		           
-		          
 		           editText=appFee.getText().toString();
 		           if(editText.matches(""))
-		           	values.put(FEE, Double.valueOf(number).doubleValue());
+		           		values.put(FEE, Double.valueOf(number).doubleValue());
 		           else
-		               values.put(FEE, Double.parseDouble(appFee.getText().toString()));
+		               	values.put(FEE, Double.parseDouble(appFee.getText().toString()));
 		          
 		           	
 		           editText = deadline.getText().toString();
 		            if (editText.matches("")) 
 		            	values.put(DEADLINE, nullString);
 		            else
-			    	values.put(DEADLINE, editText);
+		            	values.put(DEADLINE, editText);
 		            
+		           
 		           values.put(NO_LORS, Integer.parseInt(numLors.getSelectedItem().toString()));
 		           values.put(NO_TRANSCRIPTS, Integer.parseInt(numTranscripts.getSelectedItem().toString()));
+		           
+		           editText=username.getText().toString();
+		            if (editText.matches("")) 
+		            	values.put(USERNAME, nullString);
+		            else
+			    	values.put(USERNAME, editText);
+		            
+		            editText=password.getText().toString();
+		            if (editText.matches("")) 
+		            	values.put(PASSWORD, nullString);
+		            else
+			    	values.put(PASSWORD, editText);
+		            
+		            
 		           mNewUri = getContentResolver().insert(CONTENT_URI, values);
 		           
 		           finish();
+	   		   }
            }
            catch(NumberFormatException e){ 
         	   		Toast.makeText(this, "Please enter a valid application fee", Toast.LENGTH_LONG).show();

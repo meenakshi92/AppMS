@@ -36,10 +36,11 @@ import android.app.LoaderManager;
 public class Edit extends Activity implements LoaderManager.LoaderCallbacks<Cursor> {
 
 	private static final int LIST_ID = 0;
-	static EditText univName, appFee, deadline;
+	static EditText univName, appFee, deadline,username,password;
 	Button pickDate, send;
 	Spinner numLors, numTranscripts;
-	private static final String[] PROJECTION = new String[]{_ID, NAME, DEADLINE,FEE,NO_LORS,NO_TRANSCRIPTS};
+	ArrayAdapter<CharSequence> adapterLor,adapterTrans;
+	private static final String[] PROJECTION = new String[]{_ID, NAME, DEADLINE,FEE,NO_LORS,NO_TRANSCRIPTS,USERNAME,PASSWORD};
 	private static String SELECTION = null;
 	private long id;
 	//Database elements
@@ -60,16 +61,20 @@ public class Edit extends Activity implements LoaderManager.LoaderCallbacks<Curs
 		univName = (EditText) findViewById(R.id.univ_name1);
 	    appFee = (EditText) findViewById(R.id.app_fee1);
 	    deadline = (EditText) findViewById(R.id.deadline1);
+	    username=(EditText) findViewById(R.id.univUsername);
+	    password=(EditText)findViewById(R.id.univPasswd);
+	    
 	    
 	    pickDate = (Button) findViewById(R.id.pick_date1);
 	    numLors = (Spinner) findViewById(R.id.num_lors1);
 	    numTranscripts = (Spinner) findViewById(R.id.num_transcripts1);
 	    
-	    ArrayAdapter<CharSequence> adapterLor = ArrayAdapter.createFromResource(this, R.array.num_lors, android.R.layout.simple_spinner_item);
+	    adapterLor= ArrayAdapter.createFromResource(this, R.array.num_lors, android.R.layout.simple_spinner_item);
 	    adapterLor.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 	    numLors.setAdapter(adapterLor);
 	    
-	    ArrayAdapter<CharSequence> adapterTrans = ArrayAdapter.createFromResource(this, R.array.num_lors, android.R.layout.simple_spinner_item);
+	    
+	    adapterTrans = ArrayAdapter.createFromResource(this, R.array.num_lors, android.R.layout.simple_spinner_item);
 	    adapterTrans.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 	    numTranscripts.setAdapter(adapterTrans);
 	    getLoaderManager().initLoader(LIST_ID,null,this);
@@ -134,13 +139,17 @@ public class Edit extends Activity implements LoaderManager.LoaderCallbacks<Curs
 	}
 	   public void commitChanges(View view) {
 		   try{
-		    	
+		    	for(int i=0;i<1;i++)
+		    	{
 			    String number="0";
-	            String nullString="Null";
+	            String nullString="Not specified";
 	            ContentValues values = new ContentValues();
 	            String editText = univName.getText().toString();
 	            if (editText.matches("")) 
-	            	values.put(NAME, nullString);
+	            {	//values.put(NAME, nullString);
+	            	Toast.makeText(this, "Please enter the name of the university", Toast.LENGTH_LONG).show();
+	            	break;
+	            }
 	            else
 		    	values.put(NAME, editText);
 	            
@@ -158,9 +167,23 @@ public class Edit extends Activity implements LoaderManager.LoaderCallbacks<Curs
 	            
 		    	values.put(NO_LORS, Integer.parseInt(numLors.getSelectedItem().toString()));
 		    	values.put(NO_TRANSCRIPTS, Integer.parseInt(numTranscripts.getSelectedItem().toString()));
+		    	
+		    	 editText=username.getText().toString();
+		            if (editText.matches("")) 
+		            	values.put(USERNAME, nullString);
+		            else
+			    	values.put(USERNAME, editText);
+		            
+		            editText=password.getText().toString();
+		            if (editText.matches("")) 
+		            	values.put(PASSWORD, nullString);
+		            else
+			    	values.put(PASSWORD, editText);
+		    	
 		    	getContentResolver().update(CONTENT_URI, values,SELECTION,null);
 		    	
 		    	finish(); 
+		    	}
 			    }
 			    catch(NumberFormatException e){ 
 	            	Toast.makeText(this, "Please enter a valid application fee", Toast.LENGTH_LONG).show();
@@ -177,11 +200,31 @@ public class Edit extends Activity implements LoaderManager.LoaderCallbacks<Curs
 	public void onLoadFinished(Loader<Cursor> arg0, Cursor cursor) {
 		// TODO Auto-generated method stub
 		cursor.moveToFirst();
-		univName.setText(cursor.getString(1), TextView.BufferType.EDITABLE);
-		deadline.setText(cursor.getString(2),TextView.BufferType.EDITABLE);
-		appFee.setText(Double.toString(cursor.getDouble(3)),TextView.BufferType.EDITABLE);
-		numLors.setPrompt(Integer.toString(cursor.getInt(4)));
-		numTranscripts.setPrompt(Integer.toString(cursor.getInt(5)));
+		String str=cursor.getString(1);
+		univName.setText(str, TextView.BufferType.EDITABLE);
+		str=cursor.getString(2);
+		if(str.equals("Not specified"))
+			deadline.setHint("Set Date");
+		else
+			deadline.setText(str,TextView.BufferType.EDITABLE);
+		if(cursor.getDouble(3)==0.0)
+			appFee.setHint("Application Fee");
+		else
+			appFee.setText(Double.toString(cursor.getDouble(3)),TextView.BufferType.EDITABLE);
+		String s=Integer.toString(cursor.getInt(4));
+		numLors.setSelection(adapterLor.getPosition(s));
+		s=Integer.toString(cursor.getInt(5));
+		numTranscripts.setSelection(adapterTrans.getPosition(s));
+		str=cursor.getString(6);
+		if(str.equals("Not specified"))
+			username.setHint("Enter username of application");
+		else
+			username.setText(str,TextView.BufferType.EDITABLE);
+		str=cursor.getString(7);
+		if(str.equals("Not specified"))
+			password.setHint("Enter password");
+		else
+			password.setText(str,TextView.BufferType.EDITABLE);
 		Log.d("Test", DatabaseUtils.dumpCursorToString(cursor));
 		cursor.close();
 	}

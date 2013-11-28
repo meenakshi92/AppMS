@@ -2,6 +2,7 @@ package com.example.ms;
 
 import static android.provider.BaseColumns._ID;
 import static com.example.database.Constants.*;
+import android.content.Context;
 import android.content.Loader;
 import android.content.SharedPreferences;
 
@@ -9,15 +10,19 @@ import android.content.Intent;
 
 import android.database.Cursor;
 import android.graphics.Color;
+import android.graphics.Point;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.app.LoaderManager;
 import android.app.LoaderManager.LoaderCallbacks;
 import android.content.CursorLoader;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -32,13 +37,14 @@ public class RecoPage extends Fragment implements LoaderManager.LoaderCallbacks<
 	int num_lors,i;
 	
 	long id;
-	String s;
+	String s1,s2,s3;
 	TextView initial ,email;
 	CheckBox name;
+	int displayWidth;
 	LinearLayout linearLayout;
 	TableLayout tl;
 	View separator,separator1,separator2;
-	static final String[] PROJECTION = new String[]{_ID,RECO_NAME,RECO_INIT,RECO_EMAIL};
+	static final String[] PROJECTION = new String[]{_ID,RECO_NAME,RECO_PHONE,RECO_EMAIL};
 	private static final int LIST_ID = 0, SEPARATOR = 10;
 	static String SELECTION = null;
 	
@@ -79,6 +85,11 @@ public class RecoPage extends Fragment implements LoaderManager.LoaderCallbacks<
 	 	num_lors = Integer.parseInt(bundle.getString("lor"));
 	 	id = bundle.getLong("id");
 	 	SELECTION = UNI_ID + " = " + Long.toString(id);
+	 	WindowManager wm = (WindowManager) getActivity().getSystemService(Context.WINDOW_SERVICE);
+		Display display = wm.getDefaultDisplay();
+		Point size = new Point();
+		
+	 	
 	 	
 	 }
 		
@@ -89,8 +100,9 @@ public class RecoPage extends Fragment implements LoaderManager.LoaderCallbacks<
 	 private void saveInSp(String key,boolean value){
 		 SharedPreferences preferences = getActivity().getApplicationContext().getSharedPreferences(University_name+"reco", android.content.Context.MODE_PRIVATE);
 		 SharedPreferences.Editor editor = preferences.edit();
-		 editor.putBoolean(key, value);
-		 editor.commit();
+		 
+			 editor.putBoolean(key, value);
+			 editor.commit();
 	 	}
 	 
 	
@@ -123,6 +135,7 @@ public class RecoPage extends Fragment implements LoaderManager.LoaderCallbacks<
 				
 		tl.removeAllViews();
 		int i=0;
+		
 		cursor.moveToPosition(-1);
 		while(cursor.moveToNext())
 		{	TableRow row= new TableRow(getActivity());
@@ -136,17 +149,37 @@ public class RecoPage extends Fragment implements LoaderManager.LoaderCallbacks<
         	row.setLayoutParams(lp);
 			
 			final String k=Integer.toString(i);
-			s = cursor.getString(1);
+			int flag=0;
+			s1 = cursor.getString(1);
+			s2 = cursor.getString(2);
+			s3 = cursor.getString(3);
 			name = new CheckBox(getActivity());
-			name.setText(s);
+			if(s1.equals("null"))
+				{name.setText("");flag++;}
+			else
+				name.setText(s1);
 			name.setTextSize(20);
+			name.setMaxLines(2);
+			name.setMaxWidth(tl.getWidth());
 			name.setChecked(getFromSP("reco_name"+k));
 			initial=new TextView(getActivity());
-			initial.setText(cursor.getString(2));
+			if(s2.equals("null"))
+				{initial.setText("");flag++;}
+			else
+				initial.setText(s2);
 			initial.setTextSize(15);
+			initial.setMaxLines(2);
+			initial.setMaxWidth(tl.getWidth());
+			initial.setPadding(25, 0, 0, 1);
 			email=new TextView(getActivity());
-			email.setText(cursor.getString(3));
+			if(s3.equals("null"))
+				{email.setText("");flag++;}
+			else
+				email.setText(s3);
 			email.setTextSize(14);
+			email.setMaxLines(2);
+			email.setMaxWidth(tl.getWidth());
+			email.setPadding(25, 0, 0, 1);
 			
 			name.setOnCheckedChangeListener(new OnCheckedChangeListener() {
     		    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -154,20 +187,30 @@ public class RecoPage extends Fragment implements LoaderManager.LoaderCallbacks<
     					 saveInSp("reco_name"+k,isChecked);
     		    }
 			});
-
-			row.addView(name);
-			row1.addView(initial);
-			row2.addView(email);
 			
 			separator1 = new View(getActivity());
 			separator1.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 2));
-			separator1.setBackgroundColor(Color.WHITE);
+			separator1.setBackgroundColor(Color.TRANSPARENT);
 			separator1.setId(SEPARATOR);
 			
 			separator2 = new View(getActivity());
 			separator2.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 2));
-			separator2.setBackgroundColor(Color.WHITE);
+			separator2.setBackgroundColor(Color.TRANSPARENT);
 			separator2.setId(SEPARATOR);
+			
+			//if(!(s1.equals("null")&&s2.equals("null")&&s3.equals("null")))
+			if(flag!=3)
+			{
+				row.addView(name);
+				row1.addView(initial);
+				row2.addView(email);
+			}
+			else
+			{	row.setBackgroundColor(Color.TRANSPARENT);
+				row1.setBackgroundColor(Color.TRANSPARENT);
+				row2.setBackgroundColor(Color.TRANSPARENT);
+			
+			}
 			
 			tl.addView(row,i);
 			tl.addView(separator1,i+1);
@@ -177,7 +220,10 @@ public class RecoPage extends Fragment implements LoaderManager.LoaderCallbacks<
 			
 			separator = new View(getActivity());
 			separator.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 2));
-			separator.setBackgroundColor(Color.BLACK);
+			if(flag!=3)
+				separator.setBackgroundColor(Color.BLACK);
+			else
+				separator.setBackgroundColor(Color.TRANSPARENT);
 			separator.setId(SEPARATOR);
 			tl.addView(separator,i+5);
 			i=i+6;
@@ -185,7 +231,8 @@ public class RecoPage extends Fragment implements LoaderManager.LoaderCallbacks<
 			
 		}	
 		
-		cursor.close();
+		
+		//cursor.close();
 	}
 }
 

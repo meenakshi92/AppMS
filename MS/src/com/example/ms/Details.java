@@ -10,8 +10,8 @@ import android.widget.TextView;
 
 public class Details extends Fragment {
 	
-	private static String University_name,app_deadline,app_fee,lor,transcript;
-	TextView Name,deadline,fee,lors,transcripts;
+	private static String University_name,app_deadline,app_fee,lor,transcript,username,password;
+	TextView Name,deadline,fee,lors,transcripts,username1,password1;
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 	        Bundle savedInstanceState) 
 	{
@@ -28,6 +28,10 @@ public class Details extends Fragment {
 		lors.setText(lor);
 		transcripts=(TextView)v.findViewById(R.id.transcripts_value);
 		transcripts.setText(transcript);
+		username1=(TextView)v.findViewById(R.id.username_value);
+		username1.setText(username);
+		password1=(TextView)v.findViewById(R.id.password_value);
+		password1.setText(password);
 	     
 		return v;
 
@@ -43,6 +47,8 @@ public class Details extends Fragment {
 		 	app_fee=bundle.getString("fee");
 		 	lor=bundle.getString("lor");
 		 	transcript=bundle.getString("transcript");	
+		 	username=bundle.getString("username");
+		 	password=bundle.getString("password");
 		 }
 
 

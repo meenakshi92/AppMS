@@ -1,8 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical" >
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".PostApp"
+    android:layout_width="fill_parent" 
+	android:layout_height="fill_parent" >
+	<ImageView 
+		android:src="@drawable/sky"
+	    android:gravity="fill" 
+		android:layout_width="fill_parent"
+		android:layout_height="fill_parent"
+		android:scaleType="fitXY"
+		android:contentDescription="@string/sky"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -10,29 +18,33 @@
         android:orientation="vertical" >
 
         <CheckBox
-            android:id="@+id/checkBox1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/lor" />
-
-        <CheckBox
+            android:layout_marginTop="30dp"
             android:id="@+id/checkBox2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/sop" />
 
         <CheckBox
+            android:layout_marginTop="30dp"
             android:id="@+id/checkBox3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/transcript" />
 
         <CheckBox
+            android:layout_marginTop="30dp"
             android:id="@+id/checkBox4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/resume" />
+        
+        <CheckBox
+            android:layout_marginTop="30dp"
+            android:id="@+id/checkBox5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/publications" />
 
     </LinearLayout>
 
-</LinearLayout>
+</FrameLayout>

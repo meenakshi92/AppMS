@@ -6,7 +6,7 @@ package com.example.ms;
 
 import static android.provider.BaseColumns._ID;
 import static com.example.database.Constants.RECO_EMAIL;
-import static com.example.database.Constants.RECO_INIT;
+import static com.example.database.Constants.RECO_PHONE;
 import static com.example.database.Constants.RECO_NAME;
 import static com.example.database.Constants.RECO_TABLE_NAME;
 import static com.example.database.Constants.UNI_ID;
@@ -27,6 +27,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class Recos extends Activity {
 
@@ -35,7 +36,7 @@ public class Recos extends Activity {
 	private int num_lors;
 	private long id;
 	String SELECTION = null, SELEC = null;
-	String[] PROJECTION = {_ID, RECO_NAME, RECO_INIT, RECO_EMAIL};
+	String[] PROJECTION = {_ID, RECO_NAME, RECO_PHONE, RECO_EMAIL};
 	Uri mNewUri;
 
 	ArrayList<Integer> _IDs = new ArrayList<Integer>();
@@ -91,7 +92,7 @@ public class Recos extends Activity {
 		  public void onClick(View view) {
 	            
 			  	EditText editText;
-			  	boolean flag = false;
+			  	//boolean flag = false;
 			  	ContentValues values = new ContentValues();
             	values.put(UNI_ID, id);
 	            
@@ -101,19 +102,25 @@ public class Recos extends Activity {
 		                switch(i%3) {
 		                case 0: if(!editText.getText().toString().equals("")){
 		                			values.put(RECO_NAME, editText.getText().toString());
-		                			flag = true; 
+		                			//flag = true; 
 		                		}
 		                		else values.put(RECO_NAME, "null");
 		                		break;
 		                case 1: if(!editText.getText().toString().equals("")){
-		                			values.put(RECO_INIT, editText.getText().toString());
-		                			flag = true;
+		                			try{
+			                			values.put(RECO_PHONE, editText.getText().toString());
+			                			Integer.parseInt(editText.getText().toString());
+			                			//flag = true;
+			                		}catch (NumberFormatException e) {
+										// TODO: handle exception
+			                			Toast.makeText(getApplication(), "Enter valid phone number", Toast.LENGTH_SHORT).show();
+									}
 		                		}
-		                		else values.put(RECO_INIT, "null");
+		                		else values.put(RECO_PHONE, "null");
 		                		break;
 		                case 2: if(!editText.getText().toString().equals("")){
 		                			values.put(RECO_EMAIL, editText.getText().toString());
-		                			flag = true;
+		                			//flag = true;
 		                		}
 		                		else values.put(RECO_EMAIL, "null");
 		                		break;
@@ -121,16 +128,16 @@ public class Recos extends Activity {
 		                if(i%3 == 2){
 		                	if(i/3 < _IDs.size())
 		                		SELEC = SELECTION + " AND " + _ID + " = " + _IDs.get(i/3);
-			                if(flag)	{
-			                	flag = false;
+			                /*if(flag)	{
+			                	flag = false;*/
 			                	if(isNew.get(i/3))
 			                		mNewUri = getContentResolver().insert(RECO_CONTENT_URI, values);
 			                	else
 			                		getContentResolver().update(RECO_CONTENT_URI, values, SELEC, null);
-			                }
+			               /* }
 			                else if(i/3 < _IDs.size()) {
 			                	getContentResolver().delete(RECO_CONTENT_URI, SELEC, null);
-			                }
+			                }*/
 		
 			                values.clear();
 		                }
@@ -143,19 +150,26 @@ public class Recos extends Activity {
 	        EditText editText = new EditText(this);
 	        editText.setId(Integer.valueOf(id));
 	        switch(id%3){
-	        case 0: if(value == null) editText.setHint("Professor's Name");
+	        case 0: if(value==null||value.equals("null")) 
+	        		{	editText.setHint("Professor's Name");
+	        			editText.setText("");
+	        		}
 	        		else editText.setText(value); 
 	        		break;
-	        case 1: if(value == null) {
+	        case 1: if(value==null||value.equals("null")) {
 	        			editText.setHint("Initials"); 
-		        		int maxLength = 3;
+	        			editText.setText("");
+		        		int maxLength = 13;
 		        		InputFilter[] FilterArray = new InputFilter[1];
 		        		FilterArray[0] = new InputFilter.LengthFilter(maxLength);
 		        		editText.setFilters(FilterArray);
 	        		}
 					else editText.setText(value);
 	        		break;
-	        case 2: if(value == null) editText.setHint("E-mail address");
+	        case 2: if(value==null||value.equals("null"))
+	        		{	editText.setHint("E-mail address");
+	        			editText.setText("");
+	        		}
 					else editText.setText(value);
 	        		break;
 	        }

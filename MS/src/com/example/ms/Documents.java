@@ -17,11 +17,8 @@ public class Documents extends Fragment implements OnCheckedChangeListener {
 		 super.onCreateView(inflater, container, savedInstanceState);
 		        // Inflate the layout for this fragment
     View v= inflater.inflate(R.layout.documents, container, false);
-    CheckBox cb1,cb2,cb3,cb4;
+    CheckBox cb2,cb3,cb4,cb5;
 
-    cb1 = (CheckBox)v.findViewById(R.id.checkBox1);
-    cb1.setChecked(getFromSP("cb1"));
-    cb1.setOnCheckedChangeListener(this);
     cb2 = (CheckBox)v.findViewById(R.id.checkBox2);
     cb2.setChecked(getFromSP("cb2"));
     cb2.setOnCheckedChangeListener(this);
@@ -30,6 +27,9 @@ public class Documents extends Fragment implements OnCheckedChangeListener {
     cb3.setOnCheckedChangeListener(this);
     cb4 = (CheckBox)v.findViewById(R.id.checkBox4);
     cb4.setChecked(getFromSP("cb4"));
+    cb4.setOnCheckedChangeListener(this);
+    cb4 = (CheckBox)v.findViewById(R.id.checkBox5);
+    cb4.setChecked(getFromSP("cb5"));
     cb4.setOnCheckedChangeListener(this);
     return v;
     
@@ -57,9 +57,7 @@ public class Documents extends Fragment implements OnCheckedChangeListener {
         boolean isChecked) {
     // TODO Auto-generated method stub
 		 switch(buttonView.getId()){
-		 case R.id.checkBox1:
-			 saveInSp("cb1",isChecked);
-			 break;
+		 
 		 case R.id.checkBox2:
 			 saveInSp("cb2",isChecked);
 			 break;
@@ -70,6 +68,10 @@ public class Documents extends Fragment implements OnCheckedChangeListener {
 
 		 case R.id.checkBox4:
 			 saveInSp("cb4",isChecked);
+			 break;
+			 
+		 case R.id.checkBox5:
+			 saveInSp("cb5",isChecked);
 			 break;
 		 }
 

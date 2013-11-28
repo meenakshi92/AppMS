@@ -15,12 +15,14 @@ public class Data extends SQLiteOpenHelper {
 													+DEADLINE+" STRING,"
 													+FEE+" DOUBLE,"
 													+NO_LORS+" INTEGER,"
-													+NO_TRANSCRIPTS+" INTEGER);";
+													+NO_TRANSCRIPTS+" INTEGER,"
+													+USERNAME+" STRING,"
+													+PASSWORD+" STRING);";
 	private final static String SQL_RECO_CREATE_ENTRIES= "CREATE TABLE "+RECO_TABLE_NAME+
 			"("+_ID+" INTEGER PRIMARY KEY AUTOINCREMENT, "
 			+UNI_ID+" INTEGER, "
 			+RECO_NAME + " STRING, " 
-			+RECO_INIT + " STRING, " 
+			+RECO_PHONE + " REAL, " 
 			+RECO_EMAIL + " STRING, "
 			+RECO_CHECK + " BOOLEAN DEFAULT 0" + ");";
 	private final static String SQL_DELETE_ENTRIES="DROP TABLE IF EXISTS "+TABLE_NAME;

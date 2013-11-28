@@ -1,68 +1,104 @@
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:scrollbars="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
     tools:context=".AddUniv" >
+    
+    	<ImageView 
+				android:src="@drawable/sky"
+			    android:gravity="fill" 
+				android:layout_width="fill_parent"
+				android:layout_height="fill_parent"
+				android:scaleType="fitXY"
+				android:contentDescription="@string/sky"/>
+    
+    	<ScrollView
+		    	android:scrollbars="vertical"
+		        android:layout_width="fill_parent"
+				android:layout_height="wrap_content">
+			
+        	
     		<LinearLayout 
-			    android:layout_width="fill_parent"
-		        android:layout_height="wrap_content"
-		        android:orientation="vertical" >
-	        <TextView  
-			    android:id="@+id/text_view_title1"  
-			    android:layout_width="wrap_content"  
-			    android:layout_height="wrap_content"  
-			    android:text="@string/title_activity_add_univ"  
-			    android:textSize="10pt" /> 
-			<EditText  
-			    android:id="@+id/univ_name1"  
-			    android:layout_height="wrap_content"  
-			    android:hint="@string/edit_text_uname"  
-			    android:layout_width="wrap_content"/>
-			<EditText  
-			    android:id="@+id/app_fee1"  
-			    android:layout_height="wrap_content"  
-			    android:hint="@string/edit_text_appfee"    
-			    android:layout_width="wrap_content"/> 
-			<EditText
-			    android:id="@+id/deadline1"
-			    android:layout_height="wrap_content"
-			    android:layout_width="wrap_content"
-			    android:hint="@string/edit_text_setdate"
-			    android:inputType="date" 
-			    android:clickable="false" 
-			    android:cursorVisible="false"
-			    android:focusable="false"
-			    android:focusableInTouchMode="false"/>
-			<Button 
-			    android:id="@+id/pick_date1"
-			    android:layout_width="wrap_content" 
-			    android:layout_height="wrap_content"
-			    android:text="@string/pick_date" 
-			    android:onClick="showDatePickerDialog" />
-	
-				<TextView 
-				    android:layout_width="wrap_content"
-				    android:layout_height="wrap_content"
-				    android:text="@string/num_lors" />
-				<Spinner
-				    android:id="@+id/num_lors1"
-				    android:layout_width="wrap_content"
-				    android:layout_height="wrap_content" />
-				<TextView 
-				    android:layout_width="wrap_content"
-				    android:layout_height="wrap_content"
-				    android:text="@string/num_transcripts" />
-				<Spinner
-				    android:id="@+id/num_transcripts1"
-				    android:layout_width="wrap_content"
-				    android:layout_height="wrap_content" />
-				
-				<Button 
-				    android:id="@+id/button_add_univ_details1"
-				    android:layout_width="wrap_content"
-				    android:layout_height="wrap_content"
-				    android:text="@string/button_edit"
-				    android:onClick="commitChanges" />
+				    android:layout_width="fill_parent"
+			        android:layout_height="wrap_content"
+			        android:orientation="vertical" >
+			        <TextView  
+					    android:id="@+id/text_view_title1"  
+					    android:layout_width="wrap_content"  
+					    android:layout_height="wrap_content"  
+					    android:text="@string/title_activity_edit_univ"  
+					    android:textSize="10pt" /> 
+					<EditText  
+					    android:layout_marginTop="30dp"
+					    android:id="@+id/univ_name1"  
+					    android:layout_height="wrap_content"  
+					    android:hint="@string/edit_text_uname"  
+					    android:layout_width="wrap_content"/>
+					<EditText  
+					    android:layout_marginTop="15dp"
+					    android:id="@+id/app_fee1"  
+					    android:layout_height="wrap_content"  
+					    android:hint="@string/edit_text_appfee"    
+					    android:layout_width="wrap_content"/> 
+					<EditText
+					    android:layout_marginTop="15dp"
+					    android:id="@+id/deadline1"
+					    android:layout_height="wrap_content"
+					    android:layout_width="wrap_content"
+					    android:hint="@string/edit_text_setdate"
+					    android:inputType="date" 
+					    android:clickable="false" 
+					    android:cursorVisible="false"
+					    android:focusable="false"
+					    android:focusableInTouchMode="false"/>
+					<Button 
+					    android:id="@+id/pick_date1"
+					    android:layout_width="wrap_content" 
+					    android:layout_height="wrap_content"
+					    android:text="@string/pick_date" 
+					    android:onClick="showDatePickerDialog" />
+			
+						<TextView 
+						    android:layout_marginTop="15dp"
+						    android:layout_width="wrap_content"
+						    android:layout_height="wrap_content"
+						    android:text="@string/num_lors" />
+						<Spinner
+						    android:id="@+id/num_lors1"
+						    android:layout_width="wrap_content"
+						    android:layout_height="wrap_content" />
+						<TextView 
+						    android:layout_marginTop="15dp"
+						    android:layout_width="wrap_content"
+						    android:layout_height="wrap_content"
+						    android:text="@string/num_transcripts" />
+						<Spinner
+						    android:id="@+id/num_transcripts1"
+						    android:layout_width="wrap_content"
+						    android:layout_height="wrap_content" />
+						
+						<EditText  
+						android:layout_marginTop="15dp"
+					    android:id="@+id/univUsername"
+					    android:layout_height="wrap_content"  
+					    android:hint="@string/edit_text_username"  
+					    android:layout_width="wrap_content"/>
+						
+						<EditText  
+						android:layout_marginTop="15dp"
+					    android:id="@+id/univPasswd"
+					    android:layout_height="wrap_content"  
+					    android:hint="@string/edit_text_passwd"  
+					    android:layout_width="wrap_content"/>
+						
+						<Button 
+						    android:layout_marginTop="30dp"
+						    android:id="@+id/button_add_univ_details1"
+						    android:layout_width="wrap_content"
+						    android:layout_height="wrap_content"
+						    android:text="@string/button_edit"
+						    android:onClick="commitChanges" />
 				</LinearLayout>
+		
 </ScrollView>
+</FrameLayout>

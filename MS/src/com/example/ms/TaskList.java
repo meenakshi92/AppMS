@@ -23,11 +23,11 @@ import android.util.Log;
 import com.example.database.Data;
 public class TaskList extends FragmentActivity{
  
-	private static final String[] PROJECTION = new String[]{_ID,DEADLINE,FEE,NO_LORS,NO_TRANSCRIPTS};
+	private static final String[] PROJECTION = new String[]{_ID,DEADLINE,FEE,NO_LORS,NO_TRANSCRIPTS,USERNAME,PASSWORD};
 	private static String SELECTION = null;
 	ViewPager ViewPager;
 	TabsAdapter TabsAdapter;
-	String uniName,app_deadline,app_fee,lor,transcript;
+	String uniName,app_deadline,app_fee,lor,transcript,username,password;
 	private long id;
 	SQLiteDatabase db;
 	Data data;
@@ -67,10 +67,10 @@ public class TaskList extends FragmentActivity{
                 Details.class, null);
         TabsAdapter.addTab(bar.newTab().setText("Documents required"),
           Documents.class, null);
-        TabsAdapter.addTab(bar.newTab().setText("Post application"),
-          PostApp.class, null);
         TabsAdapter.addTab(bar.newTab().setText("Recommendations"),
                 RecoPage.class, null);
+        TabsAdapter.addTab(bar.newTab().setText("Post application"),
+                PostApp.class, null);
               
         if (savedInstanceState != null) {
             bar.setSelectedNavigationItem(savedInstanceState.getInt("tab", 0));
@@ -185,6 +185,8 @@ public class TaskList extends FragmentActivity{
  	bundle.putString("fee", app_fee);
  	bundle.putString("lor", lor);
  	bundle.putString("transcript", transcript);
+ 	bundle.putString("username",username);
+ 	bundle.putString("password",password);
  	
  	return bundle;
  }
@@ -198,7 +200,9 @@ public class TaskList extends FragmentActivity{
 	 	app_fee = Double.toString(cursor.getDouble(cursor.getColumnIndexOrThrow(FEE)));
 	 	lor = Integer.toString(cursor.getInt(cursor.getColumnIndexOrThrow(NO_LORS)));
 	 	transcript = Integer.toString(cursor.getInt(cursor.getColumnIndexOrThrow(NO_TRANSCRIPTS)));
-	 	cursor.close();
+	 	username = cursor.getString(cursor.getColumnIndexOrThrow(USERNAME));
+	 	password = cursor.getString(cursor.getColumnIndexOrThrow(PASSWORD));
+	 	
  }
  
 }
