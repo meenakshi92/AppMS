@@ -40,7 +40,7 @@ import android.widget.TextView;
 public class TrackIt extends Activity implements LoaderManager.LoaderCallbacks<Cursor>{
 	
 	//For TableLayout
-	static final String[] PROJECTION = new String[]{_ID,NAME};
+	static final String[] PROJECTION = new String[]{_ID,NAME,NO_LORS};
 	static final String SELECTION =  "((" + NAME + " NOT NULL) AND (" + NAME + " != '' ))";
 	private static final int LIST_ID = 1;
 	TextView name, online, aid, gre, toefl, lor, admit, finance;
@@ -392,7 +392,7 @@ public class TrackIt extends Activity implements LoaderManager.LoaderCallbacks<C
 			
 			//setting lor
 			SharedPreferences preferences1 = getApplicationContext().getSharedPreferences(s+"reco", android.content.Context.MODE_PRIVATE);
-			numberOfLors=preferences1.getInt("numberOfLors",0);
+			numberOfLors=cursor.getInt(2);
 			
 			int countLor=0;
 			boolean flag = true;
